@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 class ScaleService
-  NOTES = Note::ALL.keys
+  NOTES = Scale::CHROMATIC.map do |name| # uses sharps
+    NOTE.find_by(symbol: name)
+  end
 
   def distance_in_semitones(lower_note, upper_note)
     lower_index = NOTES.index(lower_note)
