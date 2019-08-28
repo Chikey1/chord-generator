@@ -1,0 +1,32 @@
+c = Note.create(name: "C", symbol: "C")
+cs = Note.create(name: "C sharp", symbol: "C#")
+df = Note.create(name: "D flat", symbol: "Db")
+d = Note.create(name: "D", symbol: "D")
+ds = Note.create(name: "D sharp", symbol: "D#")
+ef = Note.create(name: "E flat", symbol: "Eb")
+e = Note.create(name: "E", symbol: "E")
+f = Note.create(name: "F", symbol: "F")
+fs = Note.create(name: "F sharp", symbol: "F#")
+gf = Note.create(name: "G flat", symbol: "Gb")
+g = Note.create(name: "G", symbol: "G")
+gs = Note.create(name: "G sharp", symbol: "G#")
+af = Note.create(name: "A flat", symbol: "Ab")
+a = Note.create(name: "A", symbol: "A")
+as = Note.create(name: "A sharp", symbol: "A#")
+bf = Note.create(name: "B flat", symbol: "Bb")
+b = Note.create(name: "B", symbol: "B")
+
+cs.update(enharmonic_id: df.id)
+df.update(enharmonic_id: cs.id)
+
+ds.update(enharmonic_id: ef.id)
+ef.update(enharmonic_id: ds.id)
+
+fs.update(enharmonic_id: gf.id)
+gf.update(enharmonic_id: fs.id)
+
+gs.update(enharmonic_id: af.id)
+af.update(enharmonic_id: gs.id)
+
+as.update(enharmonic_id: bf.id)
+bf.update(enharmonic_id: as.id)

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module Scale
+  CHROMATIC = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
   MAJOR = 'major'
   MINOR = 'minor'
 
@@ -10,7 +11,7 @@ module Scale
       semitone_composition: [2, 2, 1, 2, 2, 2, 1]
     },
     MINOR => {
-      enum: 0,
+      enum: 1,
       semitone_composition: [2, 1, 2, 2, 1, 2, 2]
     }
   }.freeze
