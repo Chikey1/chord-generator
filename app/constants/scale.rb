@@ -10,7 +10,7 @@ module Scale
       semitone_composition: [2, 2, 1, 2, 2, 2, 1]
     },
     MINOR => {
-      enum: 0,
+      enum: 1,
       semitone_composition: [2, 1, 2, 2, 1, 2, 2]
     }
   }.freeze
