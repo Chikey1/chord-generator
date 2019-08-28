@@ -1,67 +1,68 @@
 # frozen_string_literal: true
 
 module Note
+  C = 'C'
+  C_SHARP = 'C#'
+  D = 'D'
+  D_SHARP = 'D#'
+  E = 'E'
+  F = 'F'
+  F_SHARP = 'F#'
+  G = 'G'
+  G_SHARP = 'G#'
+  A = 'A'
+  A_SHARP = 'A#'
+  B = 'B'
+
+  # with sharps
   ALL = {
     C => {
       enum: 0,
-      name: C
+      name: 'C'
     },
     C_SHARP => {
       enum: 1,
-      name: C_SHARP
+      name: 'C sharp'
     },
     D => {
       enum: 2,
-      name: D
+      name: 'D'
     },
     D_SHARP => {
       enum: 3,
-      name: D_SHARP
+      name: 'D sharp'
     },
     E => {
       enum: 4,
-      name: E
+      name: 'E'
     },
     F => {
       enum: 5,
-      name: F
+      name: 'F'
     },
     F_SHARP => {
       enum: 6,
-      name: F_SHARP
+      name: 'F sharp'
     },
     G => {
       enum: 7,
-      name: G
+      name: 'G'
     },
     G_SHARP => {
       enum: 8,
-      name: G_SHARP
+      name: 'G sharp'
     },
     A => {
       enum: 9,
-      name: A
+      name: 'A'
     },
     A_SHARP => {
       enum: 10,
-      name: A_SHARP
+      name: 'A sharp'
     },
     B => {
       enum: 11,
-      name: B
+      name: 'B'
     }
   }.freeze
-
-  C = 'C'
-  C_SHARP = 'C sharp'
-  D = 'D'
-  D_SHARP = 'D sharp'
-  E = 'E'
-  F = 'F'
-  F_SHARP = 'F sharp'
-  G = 'G'
-  G_SHARP = 'G sharp'
-  A = 'A'
-  A_SHARP = 'A sharp'
-  B = 'B'
 end
