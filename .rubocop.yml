@@ -1,0 +1,9 @@
+AllCops:
+  Include:
+    - 'app/**/*.rb'
+    - 'test/**/*.rb'
+  Exclude:
+    - 'bin/**'
+
+Style/Documentation:
+  Enabled: false
