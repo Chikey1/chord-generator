@@ -18,51 +18,51 @@ module Note
   ALL = {
     C => {
       enum: 0,
-      name: 'C'
+      name: 'C',
     },
     C_SHARP => {
       enum: 1,
-      name: 'C sharp'
+      name: 'C sharp',
     },
     D => {
       enum: 2,
-      name: 'D'
+      name: 'D',
     },
     D_SHARP => {
       enum: 3,
-      name: 'D sharp'
+      name: 'D sharp',
     },
     E => {
       enum: 4,
-      name: 'E'
+      name: 'E',
     },
     F => {
       enum: 5,
-      name: 'F'
+      name: 'F',
     },
     F_SHARP => {
       enum: 6,
-      name: 'F sharp'
+      name: 'F sharp',
     },
     G => {
       enum: 7,
-      name: 'G'
+      name: 'G',
     },
     G_SHARP => {
       enum: 8,
-      name: 'G sharp'
+      name: 'G sharp',
     },
     A => {
       enum: 9,
-      name: 'A'
+      name: 'A',
     },
     A_SHARP => {
       enum: 10,
-      name: 'A sharp'
+      name: 'A sharp',
     },
     B => {
       enum: 11,
-      name: 'B'
-    }
+      name: 'B',
+    },
   }.freeze
 end

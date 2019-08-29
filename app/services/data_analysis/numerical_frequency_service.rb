@@ -10,7 +10,7 @@ module DataAnalysis
     def call
       Tonality::ALL.each do |key, value|
         puts "<----- starting #{key} ------->"
-        File.open("app/data/chords_by_key/#{value[:symbol]}.txt", 'r').each do |line|
+        File.open("app/data/raw/chords_by_key/#{value[:symbol]}.txt", 'r').each do |line|
           title = get_title(line)
           line_frequency = get_frequency_object(line)
           @tonality_frequency[title] = line_frequency
@@ -27,7 +27,7 @@ module DataAnalysis
     #   Tonality::ALL.each do |key, value|
     #     puts "<----- starting #{key} ------->"
     #     @total_frequency[value[:symbol]] = {}
-    #     File.open("app/data/chords_by_key/#{value[:symbol]}.txt","r").each do |line|
+    #     File.open("app/data/raw/chords_by_key/#{value[:symbol]}.txt","r").each do |line|
     #       increment_total_frequency(line, value[:symbol])
     #     end
     #   end

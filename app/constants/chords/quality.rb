@@ -3,15 +3,15 @@
 module Chords
   module Quality
     # CATEGORIES
+    UNISON = 'unison' # also individual category
+    INTERVAL = 'interval'
     TRIAD = 'triad'
     SEVENTH = 'seventh'
     NINTH = 'ninth'
     ELEVENTH = 'eleventh'
     THIRTEENTH = 'thirteenth'
-    OTHER = 'other'
 
-    # OTHER
-    UNISON = 'unison'
+    # INVTERVAL
     POWER_CHORD = '5'
 
     # TRIAD
@@ -47,7 +47,6 @@ module Chords
     # MODIFIED
     MINOR_SEVENTH_NO_FIVE = 'm7no5'
     DOMINANT_SEVENTH_NO_THREE = '7no3'
-    DOMINANT_SEVENTH_ADD_FLAT_THIRTEEN = '7addb13'
     MAJOR_SEVENTH_NO_THREE = 'maj7no3'
     MAJOR_SEVENTH_FLAT_FIVE = 'maj7b5'
     DOMINANT_NINTH_NO_THREE = '9no3'
@@ -104,6 +103,7 @@ module Chords
     DOMINANT_SEVENTH_ADD_FOUR = '7add4'
     DOMINANT_SEVENTH_ADD_SIX = '7add6'
     DOMINANT_SEVENTH_ADD_ELEVEN = '7add11'
+    DOMINANT_SEVENTH_ADD_FLAT_THIRTEEN = '7addb13'
     DOMINANT_SEVENTH_ADD_THIRTEEN = '7add13'
     DOMINANT_SEVENTH_SUSPEND_FOUR_ADD_FLAT_NINE = '7sus4addb9'
 
@@ -129,433 +129,433 @@ module Chords
       MAJOR => {
         enum: 0,
         name: 'major',
-        type: TRIAD
+        type: TRIAD,
       },
       MINOR => {
         enum: 1,
         name: 'minor',
-        type: TRIAD
+        type: TRIAD,
       },
       MINOR_SEVENTH => {
         enum: 2,
         name: 'minor seventh',
-        type: SEVENTH
+        type: SEVENTH,
       },
       DOMINANT_SEVENTH => {
         enum: 3,
         name: 'seventh',
-        type: SEVENTH
+        type: SEVENTH,
       },
       ADD_NINE => {
         enum: 4,
         name: 'add nine',
-        type: TRIAD
+        type: TRIAD,
       },
       SUSPEND_TWO => {
         enum: 5,
         name: 'suspend two',
-        type: TRIAD
+        type: TRIAD,
       },
       SUSPEND_FOUR => {
         enum: 6,
         name: 'suspend four',
-        type: TRIAD
+        type: TRIAD,
       },
       POWER_CHORD => {
         enum: 7,
         name: 'power chord',
-        type: OTHER
+        type: INTERVAL,
       },
       SUSPEND => {
         enum: 8,
         name: 'suspend',
-        type: TRIAD
+        type: TRIAD,
       },
       MAJOR_SEVENTH => {
         enum: 9,
         name: 'major seventh',
-        type: SEVENTH
+        type: SEVENTH,
       },
       DIMINISHED => {
         enum: 10,
         name: 'diminished',
-        type: TRIAD
+        type: TRIAD,
       },
       DOMINANT_NINTH => {
         enum: 11,
         name: 'dominant ninth',
-        type: NINTH
+        type: NINTH,
       },
       MINOR_NINTH => {
         enum: 12,
         name: 'minor ninth',
-        type: NINTH
+        type: NINTH,
       },
       MAJOR_NINTH => {
         enum: 13,
         name: 'major ninth',
-        type: NINTH
+        type: NINTH,
       },
       ADD_ELEVEN => {
         enum: 14,
         name: 'add eleven',
-        type: TRIAD
+        type: TRIAD,
       },
       DIMINISHED_SEVENTH => {
         enum: 15,
         name: 'diminished seventh',
-        type: SEVENTH
+        type: SEVENTH,
       },
       ADD_SIX => {
         enum: 16,
         name: 'sixth',
-        type: TRIAD
+        type: TRIAD,
       },
       ADD_FOUR => {
         enum: 17,
         name: 'add four',
-        type: TRIAD
+        type: TRIAD,
       },
       MINOR_ADD_SIX => {
         enum: 18,
         name: 'minor add six',
-        type: TRIAD
+        type: TRIAD,
       },
       DOMINANT_SEVENTH_SUSPEND_FOUR => {
         enum: 19,
         name: 'dominant seventh suspend 4',
-        type: SEVENTH
+        type: SEVENTH,
       },
       DOMINANT_SEVENTH_SUSPEND => {
         enum: 20,
         name: 'dominant seventh suspend',
-        type: SEVENTH
+        type: SEVENTH,
       },
       MINOR_ADD_NINE => {
         enum: 21,
         name: 'minor add nine',
-        type: TRIAD
+        type: TRIAD,
       },
       ADD_SIX_ADD_NINE => {
         enum: 22,
         name: 'sixth add nine',
-        type: TRIAD
+        type: TRIAD,
       },
       DOMINANT_SEVENTH_ADD_FOUR => {
         enum: 23,
         name: 'dominant seventh add four',
-        type: SEVENTH
+        type: SEVENTH,
       },
       DOMINANT_ELEVENTH => {
         enum: 24,
         name: 'dominant eleventh',
-        type: ELEVENTH
+        type: ELEVENTH,
       },
       MINOR_ELEVENTH => {
         enum: 25,
         name: 'minor eleventh',
-        type: ELEVENTH
+        type: ELEVENTH,
       },
       SUSPEND_TWO_ADD_SIX => {
         enum: 26,
         name: 'sixth suspend two',
-        type: TRIAD
+        type: TRIAD,
       },
       MAJOR_SEVENTH_SUSPEND_TWO => {
         enum: 27,
         name: 'major seventh suspend two',
-        type: SEVENTH
+        type: SEVENTH,
       },
       MAJOR_SEVENTH_SUSPEND => {
         enum: 28,
         name: 'major seventh suspend',
-        type: SEVENTH
+        type: SEVENTH,
       },
       DOMINANT_THIRTEENTH => {
         enum: 29,
         name: 'dominant thirteenth',
-        type: THIRTEENTH
+        type: THIRTEENTH,
       },
       MAJOR_SEVENTH_SUSPEND_FOUR => {
         enum: 30,
         name: 'major seventh suspend four',
-        type: SEVENTH
+        type: SEVENTH,
       },
       HALF_DIMINISHED_SEVENTH => {
         enum: 31,
         name: 'half diminished seventh',
-        type: SEVENTH
+        type: SEVENTH,
       },
       DOMINANT_MINOR_NINTH => {
         enum: 32,
         name: 'dominant minor ninth',
-        type: NINTH
+        type: NINTH,
       },
       ADD_TWO => {
         enum: 33,
         name: 'add two',
-        type: TRIAD
+        type: TRIAD,
       },
       MINOR_SEVENTH_ADD_ELEVEN => {
         enum: 34,
         name: 'minor seventh add eleven',
-        type: SEVENTH
+        type: SEVENTH,
       },
       DOMINANT_NINTH_SUSPEND_FOUR => {
         enum: 35,
         name: 'dominant ninth suspend four',
-        type: NINTH
+        type: NINTH,
       },
       MINOR_ADD_ELEVEN => {
         enum: 36,
         name: 'minor add eleven',
-        type: TRIAD
+        type: TRIAD,
       },
       MAJOR_THIRTEENTH => {
         enum: 37,
         name: 'major thirteenth',
-        type: THIRTEENTH
+        type: THIRTEENTH,
       },
       DOMINANT_SEVENTH_SUSPEND_TWO => {
         enum: 38,
         name: 'dominant seventh suspend two',
-        type: SEVENTH
+        type: SEVENTH,
       },
       MINOR_MAJOR_SEVENTH => {
         enum: 39,
         name: 'minor major seventh',
-        type: SEVENTH
+        type: SEVENTH,
       },
       DOMINANT_SEVENTH_ADD_ELEVEN => {
         enum: 40,
         name: 'dominant seventh add eleven',
-        type: SEVENTH
+        type: SEVENTH,
       },
       AUGMENTED => {
         enum: 41,
         name: 'augmented',
-        type: TRIAD
+        type: TRIAD,
       },
       ADD_THIRTEEN => {
         enum: 42,
         name: 'add thirteen',
-        type: TRIAD
+        type: TRIAD,
       },
       MAJOR_SEVENTH_ADD_THIRTEEN => {
         enum: 43,
         name: 'major seventh add thirteen',
-        type: SEVENTH
+        type: SEVENTH,
       },
       DOMINANT_SEVENTH_ADD_THIRTEEN => {
         enum: 44,
         name: 'dominant seventh add thirteen',
-        type: SEVENTH
+        type: SEVENTH,
       },
       MAJOR_SEVENTH_FLAT_FIVE => {
         enum: 45,
         name: 'major seventh flat five',
-        type: SEVENTH
+        type: SEVENTH,
       },
       MINOR_ADD_THIRTEEN => {
         enum: 46,
         name: 'minor add thirteen',
-        type: TRIAD
+        type: TRIAD,
       },
       MINOR_SEVENTH_ADD_FOUR => {
         enum: 47,
         name: 'minor seventh add four',
-        type: SEVENTH
+        type: SEVENTH,
       },
       MINOR_ADD_FOUR => {
         enum: 48,
         name: 'minor add four',
-        type: TRIAD
+        type: TRIAD,
       },
       ADD_FOUR_ADD_NINE => {
         enum: 49,
         name: 'add four add nine',
-        type: TRIAD
+        type: TRIAD,
       },
       DOMINANT_THIRTEENTH_FLAT_NINE => {
         enum: 50,
         name: 'dominant thirteenth flat nine',
-        type: THIRTEENTH
+        type: THIRTEENTH,
       },
       DOMINANT_NINTH_FLAT_FIVE => {
         enum: 51,
         name: 'dominant ninth flat nine',
-        type: NINTH
+        type: NINTH,
       },
       DOMINANT_NINTH_SUSPEND => {
         enum: 52,
         name: 'dominant ninth suspend',
-        type: NINTH
+        type: NINTH,
       },
       MINOR_SEVENTH_ADD_FLAT_THIRTEEN => {
         enum: 53,
         name: 'minor seventh add flat thirteen',
-        type: SEVENTH
+        type: SEVENTH,
       },
       SUSPEND_SEVEN => {
         enum: 54,
         name: 'suspend seven',
-        type: TRIAD
+        type: TRIAD,
       },
       DOMINANT_SEVENTH_ADD_FLAT_THIRTEEN => {
         enum: 55,
         name: 'dominant seventh add flat thirteen',
-        type: SEVENTH
+        type: SEVENTH,
       },
       DOMINANT_SEVENTH_ADD_SIX => {
         enum: 56,
         name: 'dominant seventh add six',
-        type: SEVENTH
+        type: SEVENTH,
       },
       MINOR_THIRTEENTH => {
         enum: 57,
         name: 'minor thirteeth',
-        type: THIRTEENTH
+        type: THIRTEENTH,
       },
       SUSPEND_FOUR_ADD_SIX => {
         enum: 58,
         name: 'sixth suspend four',
-        type: TRIAD
+        type: TRIAD,
       },
       MINOR_SEVENTH_ADD_THIRTEEN => {
         enum: 59,
         name: 'minor seventh add thirteen',
-        type: SEVENTH
+        type: SEVENTH,
       },
       MINOR_SEVENTH_NO_FIVE => {
         enum: 60,
         name: 'minor seventh no five',
-        type: SEVENTH
+        type: SEVENTH,
       },
       DOMINANT_NINTH_SUSPEND_TWO => {
         enum: 61,
         name: 'dominant ninth suspend two',
-        type: NINTH
+        type: NINTH,
       },
       ADD_FOUR_ADD_SIX => {
         enum: 62,
         name: 'sixth add four',
-        type: TRIAD
+        type: TRIAD,
       },
       SUSPEND_FOUR_ADD_NINE => {
         enum: 63,
         name: 'suspend four add nine',
-        type: TRIAD
+        type: TRIAD,
       },
       ADD_SIX_ADD_ELEVEN => {
         enum: 64,
         name: 'sixth add eleven',
-        type: TRIAD
+        type: TRIAD,
       },
       MINOR_ADD_TWO => {
         enum: 65,
         name: 'minor add two',
-        type: TRIAD
+        type: TRIAD,
       },
       MAJOR_ELEVENTH => {
         enum: 66,
         name: 'major eleventh',
-        type: ELEVENTH
+        type: ELEVENTH,
       },
       SUSPEND_TWO_ADD_TWO => {
         enum: 67,
         name: 'suspend two add two',
-        type: TRIAD
+        type: TRIAD,
       },
       SUSPEND_TWO_ADD_ELEVEN => {
         enum: 68,
         name: 'suspend two add eleven',
-        type: TRIAD
+        type: TRIAD,
       },
       SUSPEND_TWO_ADD_THIRTEEN => {
         enum: 69,
         name: 'suspend two add thirteen',
-        type: TRIAD
+        type: TRIAD,
       },
       MINOR_ADD_FLAT_NINE => {
         enum: 70,
         name: 'minor add flat nine',
-        type: TRIAD
+        type: TRIAD,
       },
       MINOR_SEVENTH_ADD_FLAT_ELEVEN => {
         enum: 71,
         name: 'minor seventh add flat eleven',
-        type: SEVENTH
+        type: SEVENTH,
       },
       ADD_FLAT_SIX => {
         enum: 72,
         name: 'add flat six',
-        type: TRIAD
+        type: TRIAD,
       },
       SUSPEND_ADD_SIX => {
         enum: 73,
         name: 'sixth suspend',
-        type: TRIAD
+        type: TRIAD,
       },
       MINOR_ADD_FLAT_SIX => {
         enum: 74,
         name: 'minor add flat six',
-        type: TRIAD
+        type: TRIAD,
       },
       DOMINANT_SEVENTH_NO_THREE => {
         enum: 75,
         name: 'dominant seventh no three',
-        type: SEVENTH
+        type: SEVENTH,
       },
       DOMINANT_NINTH_NO_FIVE => {
         enum: 76,
         name: 'dominant ninth no five',
-        type: NINTH
+        type: NINTH,
       },
       UNISON => {
         enum: 77,
         name: 'unison',
-        type: OTHER
+        type: UNISON,
       },
       DOMINANT_SEVENTH_SUSPEND_FOUR_ADD_FLAT_NINE => {
         enum: 78,
         name: 'dominant seventh suspend four add flat nine',
-        type: SEVENTH
+        type: SEVENTH,
       },
       SUSPEND_FOUR_ADD_THIRTEEN => {
         enum: 79,
         name: 'suspend four add thirteen',
-        type: TRIAD
+        type: TRIAD,
       },
       DOMINANT_NINTH_NO_THREE => {
         enum: 80,
         name: 'dominant ninth no three',
-        type: NINTH
+        type: NINTH,
       },
       MAJOR_SEVENTH_NO_THREE => {
         enum: 81,
         name: 'major seventh no three',
-        type: SEVENTH
+        type: SEVENTH,
       },
       MAJOR_SEVENTH_ADD_ELEVEN => {
         enum: 82,
         name: 'major seventh add eleventh',
-        type: SEVENTH
+        type: SEVENTH,
       },
       ADD_FLAT_THIRTEEN => {
         enum: 83,
         name: 'add flat thirteen',
-        type: TRIAD
+        type: TRIAD,
       },
       MINOR_ADD_SIX_ADD_NINE => {
         enum: 84,
         name: 'minor sixth add nine',
-        type: TRIAD
+        type: TRIAD,
       },
       MINOR_SUSPEND_TWO => {
         enum: 85,
         name: 'minor suspend two',
-        type: TRIAD
-      }
+        type: TRIAD,
+      },
     }.freeze
   end
 end

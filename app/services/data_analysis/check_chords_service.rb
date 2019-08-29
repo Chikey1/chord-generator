@@ -10,7 +10,7 @@ module DataAnalysis
     def call
       Tonality::ALL.each do |key, value|
         puts "<----- starting #{key} ------->"
-        File.open("app/data/chords_by_key/#{value[:symbol]}.txt", 'r').each do |line|
+        File.open("app/data/raw/chords_by_key/#{value[:symbol]}.txt", 'r').each do |line|
           check_line_for_chord_quality(line)
         end
       end

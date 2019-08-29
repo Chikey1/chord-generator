@@ -89,7 +89,7 @@ module Chords
       '6sus' => 'susadd6',
       '6sus2' => 'sus2add6',
       '6sus4' => 'sus4add6',
-      'm7b13' => 'm7addb13'
+      'm7b13' => 'm7addb13',
 
     }.freeze
   end

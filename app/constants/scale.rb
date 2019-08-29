@@ -7,11 +7,11 @@ module Scale
   ALL = {
     MAJOR => {
       enum: 0,
-      semitone_composition: [2, 2, 1, 2, 2, 2, 1]
+      semitone_composition: [2, 2, 1, 2, 2, 2, 1],
     },
     MINOR => {
       enum: 1,
-      semitone_composition: [2, 1, 2, 2, 1, 2, 2]
-    }
+      semitone_composition: [2, 1, 2, 2, 1, 2, 2],
+    },
   }.freeze
 end

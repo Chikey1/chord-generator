@@ -41,210 +41,210 @@ module Tonality
       symbol: 'Cb',
       flats: 7,
       sharps: 0,
-      type: MAJOR
+      type: MAJOR,
     },
     G_FLAT_MAJOR => {
       enum: 1,
       symbol: 'Gb',
       flats: 6,
       sharps: 0,
-      type: MAJOR
+      type: MAJOR,
     },
     D_FLAT_MAJOR => {
       enum: 2,
       symbol: 'Db',
       flats: 5,
       sharps: 0,
-      type: MAJOR
+      type: MAJOR,
     },
     A_FLAT_MAJOR => {
       enum: 3,
       symbol: 'Ab',
       flats: 4,
       sharps: 0,
-      type: MAJOR
+      type: MAJOR,
     },
     E_FLAT_MAJOR => {
       enum: 4,
       symbol: 'Eb',
       flats: 3,
       sharps: 0,
-      type: MAJOR
+      type: MAJOR,
     },
     B_FLAT_MAJOR => {
       enum: 5,
       symbol: 'Bb',
       flats: 2,
       sharps: 0,
-      type: MAJOR
+      type: MAJOR,
     },
     F_MAJOR => {
       enum: 6,
       symbol: 'F',
       flats: 1,
       sharps: 0,
-      type: MAJOR
+      type: MAJOR,
     },
     C_MAJOR => {
       enum: 7,
       symbol: 'C',
       flats: 0,
       sharps: 0,
-      type: MAJOR
+      type: MAJOR,
     },
     G_MAJOR => {
       enum: 8,
       symbol: 'G',
       flats: 0,
       sharps: 1,
-      type: MAJOR
+      type: MAJOR,
     },
     D_MAJOR => {
       enum: 9,
       symbol: 'D',
       flats: 0,
       sharps: 2,
-      type: MAJOR
+      type: MAJOR,
     },
     A_MAJOR => {
       enum: 10,
       symbol: 'A',
       flats: 0,
       sharps: 3,
-      type: MAJOR
+      type: MAJOR,
     },
     E_MAJOR => {
       enum: 11,
       symbol: 'E',
       flats: 0,
       sharps: 4,
-      type: MAJOR
+      type: MAJOR,
     },
     B_MAJOR => {
       enum: 12,
       symbol: 'B',
       flats: 0,
       sharps: 5,
-      type: MAJOR
+      type: MAJOR,
     },
     F_SHARP_MAJOR => {
       enum: 13,
       symbol: 'F#',
       flats: 0,
       sharps: 6,
-      type: MAJOR
+      type: MAJOR,
     },
     C_SHARP_MAJOR => {
       enum: 14,
       symbol: 'C#',
       flats: 0,
       sharps: 7,
-      type: MAJOR
+      type: MAJOR,
     },
     A_FLAT_MINOR => {
       enum: 15,
       symbol: 'Abm',
       flats: 7,
       sharps: 0,
-      type: MINOR
+      type: MINOR,
     },
     E_FLAT_MINOR => {
       enum: 16,
       symbol: 'Ebm',
       flats: 6,
       sharps: 0,
-      type: MINOR
+      type: MINOR,
     },
     B_FLAT_MINOR => {
       enum: 17,
       symbol: 'Bbm',
       flats: 5,
       sharps: 0,
-      type: MINOR
+      type: MINOR,
     },
     F_MINOR => {
       enum: 18,
       symbol: 'Fm',
       flats: 4,
       sharps: 0,
-      type: MINOR
+      type: MINOR,
     },
     C_MINOR => {
       enum: 19,
       symbol: 'Cm',
       flats: 3,
       sharps: 0,
-      type: MINOR
+      type: MINOR,
     },
     G_MINOR => {
       enum: 20,
       symbol: 'Gm',
       flats: 2,
       sharps: 0,
-      type: MINOR
+      type: MINOR,
     },
     D_MINOR => {
       enum: 21,
       symbol: 'Dm',
       flats: 1,
       sharps: 0,
-      type: MINOR
+      type: MINOR,
     },
     A_MINOR => {
       enum: 22,
       symbol: 'Am',
       flats: 0,
       sharps: 0,
-      type: MINOR
+      type: MINOR,
     },
     E_MINOR => {
       enum: 23,
       symbol: 'Em',
       flats: 0,
       sharps: 1,
-      type: MINOR
+      type: MINOR,
     },
     B_MINOR => {
       enum: 24,
       symbol: 'Bm',
       flats: 0,
       sharps: 2,
-      type: MINOR
+      type: MINOR,
     },
     F_SHARP_MINOR => {
       enum: 25,
       symbol: 'F#m',
       flats: 0,
       sharps: 3,
-      type: MINOR
+      type: MINOR,
     },
     C_SHARP_MINOR => {
       enum: 26,
       symbol: 'C#m',
       flats: 0,
       sharps: 4,
-      type: MINOR
+      type: MINOR,
     },
     G_SHARP_MINOR => {
       enum: 27,
       symbol: 'G#m',
       flats: 0,
       sharps: 5,
-      type: MINOR
+      type: MINOR,
     },
     D_SHARP_MINOR => {
       enum: 28,
       symbol: 'D#m',
       flats: 0,
       sharps: 6,
-      type: MINOR
+      type: MINOR,
     },
     A_SHARP_MINOR => {
       enum: 29,
       symbol: 'A#m',
       flats: 0,
       sharps: 7,
-      type: MINOR
-    }
+      type: MINOR,
+    },
   }.freeze
 end

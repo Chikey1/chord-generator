@@ -21,6 +21,6 @@ module Enharmonic
     D_SHARP => E_FLAT,
     F_SHARP => G_FLAT,
     G_SHARP => A_FLAT,
-    A_SHARP => B_FLAT
+    A_SHARP => B_FLAT,
   }.freeze
 end
