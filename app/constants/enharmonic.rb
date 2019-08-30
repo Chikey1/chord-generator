@@ -16,11 +16,19 @@ module Enharmonic
   A_SHARP = 'A#'
   B_FLAT = 'Bb'
 
-  ALL = {
+  TO_FLAT = {
     C_SHARP => D_FLAT,
     D_SHARP => E_FLAT,
     F_SHARP => G_FLAT,
     G_SHARP => A_FLAT,
     A_SHARP => B_FLAT,
+  }.freeze
+
+  TO_SHARP = {
+    D_FLAT => C_SHARP,
+    E_FLAT => D_SHARP,
+    G_FLAT => F_SHARP,
+    A_FLAT => G_SHARP,
+    B_FLAT => A_SHARP,
   }.freeze
 end

@@ -23,8 +23,22 @@ Things you may want to cover:
 
 * ...
 
+https://drive.google.com/file/d/12H74gR6_ta_tq-g9l5z4RJe-RFU9lgbO/view?usp=sharing
 
-#CONSTANTS
+# NUMERICAL ANAYLYSIS
+## convert to numerical chords
+(steps in while loops)
+1. key: [A-G](#|b)?
+1. add
+2. sus
+3. base_chord
+4. other_modification
+
+# MODELS
+
+1. ~~ ~~
+
+# CONSTANTS
 
 note
   name - string
@@ -41,6 +55,18 @@ key_signature
   sharps - [note.symbol]
   flats - [note.symbol]
 
+# ACTIVE HASH
+
+base_chord
+  name
+  symbol
+
+modifications
+  name
+  symbol
+  category
+
+
 tonality
   symbol - string (comprised of key and mode: currently combined since we usually care about the unique combination)
   flats - integer
@@ -56,13 +82,9 @@ chord_quality (this should be changed into a table eventually)
 <!-- PROPOSAL -->
 chord_quality
   name
-  symbol
+  symbol - base_chord.symbol + modifications.symbol
   base_chord - enum(major, minor, dominant_seventh, etc)
   modifications - [enum(flat_five, etc)]
-
-base_chord
-  name
-  symbol
 
 <!-- END PROPOSAL -->
 
