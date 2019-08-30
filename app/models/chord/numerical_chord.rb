@@ -7,7 +7,18 @@ module Chord
 
     def initialize(chord_id)
       @chord_id = chord_id
-      decode_chord_id
+      decoded_ids = Converter::ChordIdService.decode_id(chord_id)
+      @modification_ids = decoded_ids[:modification_ids]
+      @chord_base_id = decoded_ids[:chord_base_id]
+      @base = decoded_ids[:base]
+    end
+
+    def quality
+      name = chord_base.symbol
+      modifications.each do |mod|
+        name += mod.symbol
+      end
+      name
     end
 
     def id
@@ -44,19 +55,6 @@ module Chord
         relative_to_base += modification.add
       end
       relative_to_base
-    end
-
-    def decode_chord_id
-      id = @chord_id
-      @base = id % 100
-      id /= 100
-      @chord_base_id = id % 100
-
-      @modification_ids = []
-      while id > 0
-        @modification_ids.push([id % 100])
-        id /= 100
-      end
     end
   end
 end

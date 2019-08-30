@@ -6,9 +6,7 @@
 2. `DataAnalysis::DataFormatterService.call`
 3. `DataAnalysis::FrequencyService.calculate`
 4. `DataAnalysis::FrequencyService.calculate_total`
-5. `DataAnalysis::NumericalFrequencyService.calculate`
-6. `DataAnalysis::NumericalFrequencyService.calculate_total`
-7. `DataAnalysis::NumericalFrequencyService.calculate_percentage`
+5. `DataAnalysis::NumericalFrequencyService.recalculate_all`
 8. `DataAnalysis::NumericalProgressionService.calculate`
 9. `DataAnalysis::NumericalProgressionService.calculate_percentage`
 
@@ -68,10 +66,12 @@ is split into the following, all stored as:
     - input: clean chord name - `"Dmaj7add13"`
     - ouput: `MacroChord` attributes - `{ key: "D", quality: "maj7add13", base: "maj", modifications: "add13", unknown: ""}`
     - *if unknown is present, there is an error with the input
-- **NumericalChordService**
+- **ChordIdService**
   - `.id_from_name`
     - input: clean chord name - `"Dmaj7add13"`, tonality - `"D"`
     - ouput: integer
+  - `.encode_id`
+  - `.decode_id`
 
 ### DATA ANALYSIS::
 - **CheckChordsService**
@@ -95,9 +95,12 @@ is split into the following, all stored as:
   - [see data](#data) for more information
 
 - **NumericalFrequencyService**
-  1. `.calculate`
-  2. `.calculate_total`
-  2. `.calculate_percentage`
+  - `DataAnalysis::NumericalFrequencyService.recalculate_all`
+    1. `.calculate`
+    2. `.calculate_total`
+    3. `.calculate_percentage`
+    4. `.calculate_first_note`
+    5. `.calculate_first_note_percentage`
 
 - **NumericalProgressionService**
   1. `.calculate`

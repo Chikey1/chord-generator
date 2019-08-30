@@ -6,12 +6,14 @@ module Converter
       def call(chord_name)
         key, quality = get_key_and_quality(chord_name)
         base, modifications, unknown = get_quality_attributes(quality)
-        {
+
+        raise "could not decode #{key + quality}" if unknown.present?
+
+        return {
           key: key,
           quality: quality,
           base: base,
           modifications: modifications,
-          unknown: unknown,
         }
       end
 
@@ -49,7 +51,7 @@ module Converter
           end
         end
 
-        [base, modifications, unknown]
+        [base, modifications.reverse, unknown]
       end
 
       def find_base(quality)

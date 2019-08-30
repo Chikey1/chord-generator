@@ -15,7 +15,7 @@ module DataAnalysis
             song_data = []
 
             chords.each do |chord|
-              song_data.push(Converter::NumericalChordService.id_from_name(chord.dup, value[:symbol]))
+              song_data.push(Converter::ChordIdService.id_from_name(chord.dup, value[:symbol]))
             end
 
             formatted_data.push(song_data)

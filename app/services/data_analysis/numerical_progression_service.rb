@@ -3,6 +3,13 @@
 module DataAnalysis
   class NumericalProgressionService
     class << self
+      def recalculate_all
+        puts "~~~~~~~~~~~ CALCULATING PROGRESSION BY KEY ~~~~~~~~~~~"
+        calculate
+        puts "~~~~~~~~~~~ CALCULATING TOTAL PROGRESSION FREQUENCIES ~~~~~~~~~~~"
+        calculate_percentage
+      end
+
       def calculate
         start = Time.now
         progression_time = 0
