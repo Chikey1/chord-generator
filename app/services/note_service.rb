@@ -11,9 +11,6 @@ class NoteService
     end
 
     def get_note_index(note)
-      if Note.find_by_symbol(note).nil?
-        byebug
-      end
       Note.find_by_symbol(note).id
     end
 

@@ -9,8 +9,8 @@ Metrics/ModuleLength:
   Exclude:
     - 'app/constants/**/*.rb'
 
-Style/Documentation:
-  Enabled: false
+# Metrics/AbcSize:
+#   Max: 20
 
 Metrics/LineLength:
   Max: 120
@@ -18,5 +18,12 @@ Metrics/LineLength:
 Metrics/MethodLength:
   Max: 20
 
+Style/NumericPredicate:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
 Style/TrailingCommaInHashLiteral:
   EnforcedStyleForMultiline: comma
+

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Note < ActiveHash::Base
   self.data = ActiveHashData::NOTES
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ActiveHashData
   NOTES = [
     {
@@ -8,7 +10,7 @@ module ActiveHashData
       id: 2,
       symbol: 'C#',
       name: 'C sharp',
-    },  {
+    }, {
       id: 3,
       symbol: 'D',
       name: 'D',
@@ -28,7 +30,7 @@ module ActiveHashData
       id: 7,
       symbol: 'F#',
       name: 'F sharp',
-    },  {
+    }, {
       id: 8,
       symbol: 'G',
       name: 'G',

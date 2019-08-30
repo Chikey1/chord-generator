@@ -11,7 +11,8 @@ module DataAnalysis
         end
       end
 
-    private
+      private
+
       def clean_chord_name(chord)
         key = chord[0]
         chord[0] = ''
@@ -27,17 +28,13 @@ module DataAnalysis
       end
 
       def clean_key(key)
-        if DataConversion::Enharmonics::TO_BACKEND[key].present?
-          key = DataConversion::Enharmonics::TO_BACKEND[key]
-        end
+        key = DataConversion::Enharmonics::TO_BACKEND[key] if DataConversion::Enharmonics::TO_BACKEND[key].present?
         key
       end
 
       def clean_quality(quality)
         quality = quality.split('/')[0] if slash_chord?(quality)
-        if DataConversion::CHORD_QUALITIES[quality].present?
-          quality = DataConversion::CHORD_QUALITIES[quality]
-        end
+        quality = DataConversion::CHORD_QUALITIES[quality] if DataConversion::CHORD_QUALITIES[quality].present?
         quality
       end
 

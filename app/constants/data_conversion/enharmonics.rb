@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module DataConversion
   module Enharmonics
     C_SHARP = 'C#'
@@ -38,10 +39,10 @@ module DataConversion
       G_FLAT => F_SHARP,
       A_FLAT => G_SHARP,
       B_FLAT => A_SHARP,
-      "E#" => "F",
-      "B#" => "C",
-      "Cb" => "B",
-      "Fb" => "E",
+      'E#' => 'F',
+      'B#' => 'C',
+      'Cb' => 'B',
+      'Fb' => 'E',
     }.freeze
   end
 end

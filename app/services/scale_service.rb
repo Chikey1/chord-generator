@@ -12,9 +12,7 @@ class ScaleService
           'major'
         end
 
-      if NoteService.flat?(root)
-        root = DataConversion::Enharmonics::TO_SHARP(root)
-      end
+      root = DataConversion::Enharmonics::TO_SHARP(root) if NoteService.flat?(root)
 
       build_scale(root, mode)
     end
@@ -41,7 +39,7 @@ class ScaleService
       check_sharp_key_signature(sharps) && check_flat_key_signature(flats)
     end
 
-  private
+    private
 
     def check_flat_key_signature(flats)
       valid = true

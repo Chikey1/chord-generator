@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Chord
   class NumericalChord
     attr_reader :modification_ids, :chord_base_id, :base
@@ -33,7 +35,8 @@ module Chord
       end
     end
 
-  private
+    private
+
     def composition_relative_to_base
       relative_to_base = chord_base.composition
       modifications.each do |modification|

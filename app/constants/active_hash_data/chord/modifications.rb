@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ActiveHashData
   module Chord
     MODIFICATIONS = [
@@ -28,13 +30,13 @@ module ActiveHashData
         symbol: 'sus4',
         name: 'suspended four',
         remove: [3, 4],
-        add: [5]
+        add: [5],
       }, {
         id: 6,
         symbol: 'sus2',
         name: 'suspended two',
         remove: [3, 4],
-        add: [2]
+        add: [2],
       }, {
         id: 7,
         symbol: 'add2',
@@ -88,6 +90,6 @@ module ActiveHashData
         remove: [5],
         add: [4],
       }
-    ]
+    ].freeze
   end
 end

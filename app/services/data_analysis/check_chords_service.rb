@@ -19,10 +19,11 @@ module DataAnalysis
             end
           end
         end
+
         if unknown_chords.empty?
           puts "YAY YOU'RE GOOD"
         else
-          puts "UNKNOWN CHORDS:"
+          puts 'UNKNOWN CHORDS:'
           unknown_chords.compact.each { |uc| puts uc }
         end
         puts "total_time: #{Time.now - start_time}"
@@ -32,6 +33,7 @@ module DataAnalysis
 
       def valid_key?(key)
         return true if Note.find_by_symbol(key).present?
+
         false
       end
 

@@ -4,19 +4,18 @@ module DataAnalysis
   class FrequencyService
     class << self
       def calculate
-        tonality_frequency = {}
+        tonality_frequency = []
         Tonality::ALL.each do |key, value|
           puts "<----- starting #{key} ------->"
           File.open("app/data/raw/chords_by_key/#{value[:symbol]}.txt", 'r').each do |line|
-            title = get_title(line)
             line_frequency = get_frequency_object(line)
-            tonality_frequency[title] = line_frequency
+            tonality_frequency.push(line_frequency)
           end
 
           File.open("app/data/analysis/frequency/#{value[:symbol]}.json", 'w') do |file|
             file.puts tonality_frequency.to_json
           end
-          tonality_frequency = {}
+          tonality_frequency = []
         end
       end
 
@@ -47,7 +46,7 @@ module DataAnalysis
         sorted_data.first(5).to_h
       end
 
-    private
+      private
 
       def increment_total_frequency(line, key, total_frequency)
         _title, chords = line.split(':')
@@ -59,11 +58,6 @@ module DataAnalysis
             total_frequency[key][chord] += 1
           end
         end
-      end
-
-      def get_title(line)
-        title, _chords = line.split(':')
-        title
       end
 
       def get_frequency_object(line)

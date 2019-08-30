@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Converter
   class NumericalChordService
     class << self
@@ -9,7 +11,8 @@ module Converter
         encode_ids(base, chord_base_id, modification_ids)
       end
 
-    private
+      private
+
       def encode_ids(base, chord_base_id, modification_ids)
         id = 0
         modification_ids.each do |mod|
@@ -40,9 +43,7 @@ module Converter
 
       def clean_tonality(tonality)
         clean = tonality.chomp('m')
-        if DataConversion::Enharmonics::TO_BACKEND[clean]
-          clean = DataConversion::Enharmonics::TO_BACKEND[clean]
-        end
+        clean = DataConversion::Enharmonics::TO_BACKEND[clean] if DataConversion::Enharmonics::TO_BACKEND[clean]
         clean
       end
     end

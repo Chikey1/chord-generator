@@ -25,15 +25,21 @@ is split into the following, all stored as:
 - **formatted** (json 2D array)
   - raw data formatted into `[song][order] = chord_id`
   - reformat by running `DataAnalysis::DataFormatterService.call`
-- **frequency** (json hash)
+- **frequency**
   - how often the macro chord appears
+  - by song (json array of hashes)
+  - by key (json hash)
   - uses raw data
   - recalculate frequency by song: `DataAnalysis::FrequencyService.calculate`
   - recalculate frequency by key: `DataAnalysis::FrequencyService.calculate_total`
 - **numerical_frequency**
   - how often the numerical chord appears
+  - by song (json array of hashes)
+  - by key (json hash)
   - uses formatted data
-- **numerical_relations**
+  - recalculate frequency by song: `DataAnalysis::NumericalFrequencyService.calculate`
+  - recalculate frequency by key: `DataAnalysis::NumericalFrequencyService.calculate_total`
+- **numerical_progression**
   - what numerical chord is most likely to come after the current
   - uses formatted data
 

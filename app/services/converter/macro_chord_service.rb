@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Converter
   class MacroChordService
     class << self
@@ -12,7 +14,9 @@ module Converter
           unknown: unknown,
         }
       end
-    private
+
+      private
+
       def get_key_and_quality(chord_name)
         key = chord_name[0]
         chord_name[0] = ''
@@ -27,31 +31,36 @@ module Converter
       def get_quality_attributes(quality)
         unknown = quality.dup
         modifications = []
-        ["add", "sus", "no"].each do |type|
-          if quality.include?(type)
-            Chord::Modification.symbols(type: type).each do |mod|
-              modifications.push(mod) if unknown.slice!(mod)
-            end
+        %w[add sus no].each do |type|
+          next unless quality.include?(type)
+
+          Chord::Modification.symbols(type: type).each do |mod|
+            modifications.push(mod) if unknown.slice!(mod)
           end
         end
 
-        base = ""
-        if unknown.present?
-          Chord::Base.symbols.each do |symbol|
-            base = symbol if unknown.start_with?(symbol) && base.length < symbol.length
-            break if unknown == symbol
-          end
-          unknown.slice!(base)
-        end
+        base = find_base(unknown)
+        unknown.slice!(base)
 
         if unknown.present?
-          Chord::Modification.symbols(type: "change").each do |mod|
+          Chord::Modification.symbols(type: 'change').each do |mod|
             modifications.push(mod) if unknown.slice!(mod)
             break if unknown.empty?
           end
         end
 
-        return [base, modifications, unknown]
+        [base, modifications, unknown]
+      end
+
+      def find_base(quality)
+        best_match = ''
+        if quality.present?
+          Chord::Base.symbols.each do |symbol|
+            best_match = symbol if quality.start_with?(symbol) && base.length < symbol.length
+            break if quality == symbol
+          end
+        end
+        best_match
       end
     end
   end

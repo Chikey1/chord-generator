@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Chord
   class MacroChord
     attr_reader :key, :quality, :modifications, :base, :unknown
@@ -33,6 +35,7 @@ module Chord
     def valid_key?
       return true if Note.find_by_symbol(@key).present?
       return true if Note.find_by_symbol(DataConversion::Enharmonics::TO_SHARP[@key]).present?
+
       false
     end
   end
