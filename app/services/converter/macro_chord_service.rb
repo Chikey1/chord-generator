@@ -9,7 +9,7 @@ module Converter
 
         raise "could not decode #{key + quality}" if unknown.present?
 
-        return {
+        {
           key: key,
           quality: quality,
           base: base,
