@@ -1,75 +1,64 @@
 # frozen_string_literal: true
 
 class ScaleService
-  NOTES = Note::ALL.keys
+  class << self
+    def scale_from_key(key)
+      root = key.slice!(/[A-G](#|b)?/)
+      mode =
+        case key
+        when 'm'
+          'minor'
+        else
+          'major'
+        end
 
-  def distance_in_semitones(lower_note, upper_note)
-    lower_index = NOTES.index(lower_note)
-    upper_index = NOTES.index(upper_note)
-
-    upper_index += NOTES.length if lower_index > upper_index
-    upper_index - lower_index
-  end
-
-  def scale_from_key(key)
-    note_service = NoteService.new
-    root = key.slice!(/[A-G](#|b)?/)
-    mode =
-      case key
-      when 'm'
-        'minor'
-      else
-        'major'
+      if NoteService.flat?(root)
+        root = DataConversion::Enharmonics::TO_SHARP(root)
       end
 
-    if note_service.flat?(root)
-      converter_service = ConverterService.new
-      root = converter_service.flat_to_sharp(root)
+      build_scale(root, mode)
     end
 
-    build_scale(root, mode)
-  end
+    def build_scale(root, mode)
+      start_index = Note.find_by_symbol(root).id
+      scale = [root]
 
-  def build_scale(root, mode)
-    start_index = NOTES.index(root)
-    scale = [root]
+      Scale::ALL[mode][:semitone_composition].each do |step|
+        start_index += step
 
-    Scale::ALL[mode][:semitone_composition].each do |step|
-      start_index += step
+        start_index -= Note.count if start_index > Note.count
 
-      start_index -= NOTES.length if start_index >= NOTES.length
+        scale.push(Note.find(start_index).symbol)
+      end
 
-      scale.push(NOTES[start_index])
+      scale
     end
 
-    scale
-  end
+    def check_key_signature(scale)
+      flats = scale.select { |note| NoteService.flat?(note) }
+      sharps = scale.select { |note| NoteService.sharp?(note) }
 
-  def check_key_signature(scale)
-    note_service = NoteService.new
-    flats = scale.select { |note| note_service.flat?(note) }
-    sharps = scale.select { |note| note_service.sharp?(note) }
-
-    check_sharp_key_signature(sharps) && check_flat_key_signature(flats)
-  end
+      check_sharp_key_signature(sharps) && check_flat_key_signature(flats)
+    end
 
   private
 
-  def check_flat_key_signature(flats)
-    valid = true
-    flats.length.times do |index|
-      flat = KeySignature::FLATS[index]
-      valid &= flats.include?(flat)
+    def check_flat_key_signature(flats)
+      valid = true
+      flats.length.times do |index|
+        flat = KeySignature::FLATS[index]
+        valid &= flats.include?(flat)
+      end
+      valid
     end
-    valid
-  end
 
-  def check_sharp_key_signature(sharps)
-    valid = true
-    sharps.length.times do |index|
-      sharp = KeySignature::FLATS[index]
-      valid &= sharps.include?(sharp)
+    def check_sharp_key_signature(sharps)
+      valid = true
+      sharps.length.times do |index|
+        sharp = KeySignature::FLATS[index]
+        valid &= sharps.include?(sharp)
+      end
+      valid
     end
-    valid
   end
 end
