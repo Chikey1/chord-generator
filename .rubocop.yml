@@ -9,9 +9,6 @@ Metrics/ModuleLength:
   Exclude:
     - 'app/constants/**/*.rb'
 
-# Metrics/AbcSize:
-#   Max: 20
-
 Metrics/LineLength:
   Max: 120
 

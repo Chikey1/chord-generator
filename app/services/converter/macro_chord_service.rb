@@ -56,7 +56,7 @@ module Converter
         best_match = ''
         if quality.present?
           Chord::Base.symbols.each do |symbol|
-            best_match = symbol if quality.start_with?(symbol) && base.length < symbol.length
+            best_match = symbol if quality.start_with?(symbol) && best_match.length < symbol.length
             break if quality == symbol
           end
         end

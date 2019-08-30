@@ -46,17 +46,43 @@ module DataAnalysis
         puts "total time: #{Time.now - start}"
       end
 
-      def top_chords_by_key(key)
-        frequency_data = JSON.parse(File.open('app/data/analysis/numerical_frequency/all.json', 'r').first)
-        if frequency_data[key].nil?
-          puts 'invalid key'
-          return
+      def calculate_percentage
+        start = Time.now
+        all = combine_frequency
+        total = all.values.sum
+
+        all.transform_values! do |frequency|
+          frequency*100/total
         end
-        sorted_data = frequency_data[key].sort_by { |_k, v| -v }
-        sorted_data.first(5).to_h
+
+        all.delete_if do |_chord, percentage|
+          percentage == 0
+        end
+
+        File.open('app/data/analysis/numerical_frequency/all_percentage.json', 'w') do |file|
+          file.puts all.to_json
+        end
+        puts "total time: #{Time.now - start}"
       end
 
       private
+
+      def combine_frequency
+        all = {}
+        raw_data = File.open('app/data/analysis/numerical_frequency/all.json', 'r').first
+        data = JSON.parse(raw_data)
+        data.each do |key, chords|
+          puts "<----- starting #{key} ------->"
+          chords.each do |chord, frequency|
+            if all[chord].nil?
+              all[chord] = frequency
+            else
+              all[chord] += frequency
+            end
+          end
+        end
+        all
+      end
 
       def increment_total_frequency(song, key, total_frequency)
         song.each do |chord|

@@ -22,7 +22,6 @@ module Converter
         id += chord_base_id
         id *= 100
         id += base
-        id *= 100
         id
       end
 

@@ -1,5 +1,17 @@
 # README
 
+## Updating Data
+
+1. `DataAnalysis::CheckChordsService.call`
+2. `DataAnalysis::DataFormatterService.call`
+3. `DataAnalysis::FrequencyService.calculate`
+4. `DataAnalysis::FrequencyService.calculate_total`
+5. `DataAnalysis::NumericalFrequencyService.calculate`
+6. `DataAnalysis::NumericalFrequencyService.calculate_total`
+7. `DataAnalysis::NumericalFrequencyService.calculate_percentage`
+8. `DataAnalysis::NumericalProgressionService.calculate`
+9. `DataAnalysis::NumericalProgressionService.calculate_percentage`
+
 ## Sections
 
 1. [Data](#data)
@@ -44,6 +56,7 @@ is split into the following, all stored as:
   - uses formatted data
   - recalculate frequency by song: `DataAnalysis::NumericalFrequencyService.calculate`
   - recalculate frequency by key: `DataAnalysis::NumericalFrequencyService.calculate_total`
+  - recalculate overall percentages: `DataAnalysis::NumericalFrequencyService.calculate_percentage`
 - **numerical_progression**
   - what numerical chord is most likely to come after the current
   - uses formatted data
@@ -82,7 +95,13 @@ is split into the following, all stored as:
   - [see data](#data) for more information
 
 - **NumericalFrequencyService**
-  - work in prog
+  1. `.calculate`
+  2. `.calculate_total`
+  2. `.calculate_percentage`
+
+- **NumericalProgressionService**
+  1. `.calculate`
+  2. `.calculate_percentage`
 
 ### OTHER
 - **NoteService**
