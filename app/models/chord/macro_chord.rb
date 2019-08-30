@@ -32,7 +32,7 @@ module Chord
 
     def valid_key?
       return true if Note.find_by_symbol(@key).present?
-      return true if Note.find_by_symbol(Enharmonic::TO_SHARP[@key]).present?
+      return true if Note.find_by_symbol(DataConversion::Enharmonics::TO_SHARP[@key]).present?
       false
     end
   end

@@ -10,7 +10,8 @@ module DataAnalysis
         Tonality::ALL.each do |key, value|
           puts "<----- starting #{key} ------->"
           File.open("app/data/raw/chords_by_key/#{value[:symbol]}.txt", 'r').map do |line|
-            chords = line_to_chord_array(line)
+            chords = DataAnalysis::DataCleanerService.clean_line(line)
+
             chords.each do |chord|
               attributes = Converter::MacroChordService.call(chord.dup)
 
@@ -31,18 +32,11 @@ module DataAnalysis
 
       def valid_key?(key)
         return true if Note.find_by_symbol(key).present?
-        return true if Note.find_by_symbol(Enharmonic::TO_SHARP[key]).present?
         false
       end
 
       def valid_quality?(unknown)
         unknown.blank?
-      end
-
-      def line_to_chord_array(line)
-        line.gsub!(/\s/, '') # remove whitespace
-        line.sub!(/^.*:/, '') # remove title
-        line.split(',')
       end
     end
   end

@@ -4,7 +4,7 @@ module Converter
       def call(chord_name)
         key, quality = get_key_and_quality(chord_name)
         base, modifications, unknown = get_quality_attributes(quality)
-        return {
+        {
           key: key,
           quality: quality,
           base: base,
@@ -19,11 +19,6 @@ module Converter
         if chord_name[0] == '#' || chord_name[0] == 'b'
           key += chord_name[0]
           chord_name[0] = ''
-        end
-
-        chord_name = chord_name.split('/')[0] if slash_chord?(chord_name)
-        if DataConversion::CHORD_QUALITIES[chord_name].present?
-          chord_name = DataConversion::CHORD_QUALITIES[chord_name]
         end
 
         [key, chord_name]
@@ -57,10 +52,6 @@ module Converter
         end
 
         return [base, modifications, unknown]
-      end
-
-      def slash_chord?(chord)
-        chord.include?('/')
       end
     end
   end

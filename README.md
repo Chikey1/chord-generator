@@ -36,7 +36,8 @@ https://drive.google.com/file/d/12H74gR6_ta_tq-g9l5z4RJe-RFU9lgbO/view?usp=shari
 
 # MODELS
 
-1. ~~ ~~
+1. ~~Chord::Base~~
+2. ~~Chord::Modification~~
 
 # CONSTANTS
 

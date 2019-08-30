@@ -19,6 +19,10 @@ module Chord
       end
     end
 
+    def self.as_hash
+      all.index_by(&:symbol)
+    end
+
     def self.where_type(type)
       case type
       when "add"
