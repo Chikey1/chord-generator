@@ -3,6 +3,7 @@
 ## Sections
 
 1. [Data](#data)
+2. [Services](#services)
 
 
 backend: https://drive.google.com/file/d/12H74gR6_ta_tq-g9l5z4RJe-RFU9lgbO/view?usp=sharing
@@ -37,7 +38,7 @@ is split into the following, all stored as:
   - uses formatted data
 
 ## Services
-### CONVERTER
+### CONVERTER::
 - **MacroChordService**
   - `.call`
     - input: clean chord name - `"Dmaj7add13"`
@@ -48,7 +49,7 @@ is split into the following, all stored as:
     - input: clean chord name - `"Dmaj7add13"`, tonality - `"D"`
     - ouput: integer
 
-### DATA ANALYSIS
+### DATA ANALYSIS::
 - **CheckChordsService**
   - `.call`
     - run in console to check that raw data is correct
