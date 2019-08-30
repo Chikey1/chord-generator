@@ -1,41 +1,31 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+##Sections
+[Data](#data)
 
-Things you may want to cover:
 
-* Ruby version
+backend: https://drive.google.com/file/d/12H74gR6_ta_tq-g9l5z4RJe-RFU9lgbO/view?usp=sharing
 
-* System dependencies
+## Data
+### RAW
+has one file for each tonality
+each file has one line for each song
+the line is formatted as:
+`title: chord, chord, chord, chord`
+### ANALYSIS
 
-* Configuration
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-https://drive.google.com/file/d/12H74gR6_ta_tq-g9l5z4RJe-RFU9lgbO/view?usp=sharing
-
-# NUMERICAL ANAYLYSIS
-## convert to numerical chords
+## NUMERICAL ANAYLYSIS
+### convert to numerical chords
 (steps in while loops)
 1. key: [A-G](#|b)?
 1. add
 2. sus
-3. base_chord
-4. other_modification
+3. no
+4. base_chord
+5. other_modification
 
 # MODELS
-
 1. ~~Chord::Base~~
 2. ~~Chord::Modification~~
 
@@ -128,4 +118,8 @@ generate_chords_for_melody
 
 
 
+<<<<<<< Updated upstream
 Melody (macro) -> Melody (numerical) -> Chords (numerical) -> Chords(macro)
+=======
+Melody (macro) -> Melody (numerical) -> Chords (numerical) -> Chords(macro)
+>>>>>>> Stashed changes
