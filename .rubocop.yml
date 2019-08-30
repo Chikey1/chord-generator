@@ -9,6 +9,10 @@ Metrics/ModuleLength:
   Exclude:
     - 'app/constants/**/*.rb'
 
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*.rb'
+
 Metrics/LineLength:
   Max: 120
 

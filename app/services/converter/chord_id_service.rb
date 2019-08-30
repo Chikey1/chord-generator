@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Converter
   class ChordIdService
     class << self
@@ -12,7 +13,7 @@ module Converter
         encode_id(
           base: base,
           chord_base_id: chord_base_id,
-          modification_ids: modification_ids,
+          modification_ids: modification_ids
         )
       end
 
@@ -30,7 +31,7 @@ module Converter
 
       def decode_id(encoded_id)
         id = encoded_id
-        decoded = {base: id % 100}
+        decoded = { base: id % 100 }
         id /= 100
         decoded[:chord_base_id] = id % 100
         id /= 100
@@ -42,7 +43,8 @@ module Converter
         decoded
       end
 
-    private
+      private
+
       def get_relative_base(base, tonality)
         lower_note = clean_tonality(tonality)
         NoteService.semitone_distance(lower_note, base) + 1

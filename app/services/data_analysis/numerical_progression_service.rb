@@ -4,9 +4,9 @@ module DataAnalysis
   class NumericalProgressionService
     class << self
       def recalculate_all
-        puts "~~~~~~~~~~~ CALCULATING PROGRESSION BY KEY ~~~~~~~~~~~"
+        puts '~~~~~~~~~~~ CALCULATING PROGRESSION BY KEY ~~~~~~~~~~~'
         calculate
-        puts "~~~~~~~~~~~ CALCULATING TOTAL PROGRESSION FREQUENCIES ~~~~~~~~~~~"
+        puts '~~~~~~~~~~~ CALCULATING TOTAL PROGRESSION FREQUENCIES ~~~~~~~~~~~'
         calculate_percentage
       end
 
@@ -23,7 +23,7 @@ module DataAnalysis
           progression[key] = get_progression_object(data)
           progression_time += Time.now - progression_start
         end
-        File.open("app/data/analysis/numerical_progression/naive_next.json", 'w') do |file|
+        File.open('app/data/analysis/numerical_progression/naive_next.json', 'w') do |file|
           file.puts progression.to_json
         end
         puts "total time: #{Time.now - start}"
@@ -33,11 +33,11 @@ module DataAnalysis
       def calculate_percentage
         start = Time.now
         all = combine_progression_frequency
-        all.each do |from_chord, to_chords|
+        all.each do |_from_chord, to_chords|
           total = to_chords.values.sum
 
           to_chords.transform_values! do |frequency|
-            frequency*100/total
+            frequency * 100 / total
           end
 
           to_chords.delete_if do |_chord, percentage|
@@ -55,7 +55,7 @@ module DataAnalysis
 
       def combine_progression_frequency
         all = {}
-        raw_data = File.open("app/data/analysis/numerical_progression/naive_next.json", 'r').first
+        raw_data = File.open('app/data/analysis/numerical_progression/naive_next.json', 'r').first
         data = JSON.parse(raw_data)
         data.each do |key, from_chords|
           puts "<----- starting #{key} ------->"
@@ -79,7 +79,7 @@ module DataAnalysis
         data.each do |song|
           (song.length - 1).times do |i|
             chord_name = song[i].to_s
-            next_chord = song[i+1].to_s
+            next_chord = song[i + 1].to_s
             progression[chord_name] ||= {}
 
             if progression[chord_name][next_chord].nil?
