@@ -1,6 +1,7 @@
 # README
 
-##Sections
+## Sections
+
 [Data](#data)
 
 
@@ -8,11 +9,26 @@ backend: https://drive.google.com/file/d/12H74gR6_ta_tq-g9l5z4RJe-RFU9lgbO/view?
 
 ## Data
 ### RAW
+
 has one file for each tonality
+
 each file has one line for each song
+
 the line is formatted as:
+
 `title: chord, chord, chord, chord`
+
 ### ANALYSIS
+
+is split into the following:
+- **formatted**
+  - raw data formatted into [song][order] = chord_id
+  - reformat by running `DataAnalysis::DataFormatterService.call`
+- **frequency**
+  - how often the macro chord appears
+- **numerical_frequency**
+  - how often the numerical chord appears
+
 
 
 ## NUMERICAL ANAYLYSIS
