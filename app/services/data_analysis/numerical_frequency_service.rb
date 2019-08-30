@@ -3,6 +3,64 @@
 module DataAnalysis
   class NumericalFrequencyService
     class << self
+      def recalculate_all
+        puts "~~~~~~~~~~~ CALCULATING FREQUENCY BY SONG ~~~~~~~~~~~"
+        calculate
+        puts "~~~~~~~~~~~ CALCULATING FREQUENCY BY KEY ~~~~~~~~~~~"
+        calculate_total
+        puts "~~~~~~~~~~~ CALCULATING TOTAL PERCENTAGE FREQUENCY ~~~~~~~~~~~"
+        calculate_percentage
+        puts "~~~~~~~~~~~ CALCULATING FIRST NOTE FREQUENCY ~~~~~~~~~~~"
+        calculate_first_note
+        puts "~~~~~~~~~~~ CALCULATING FIRST NOTE PERCENTAGE ~~~~~~~~~~~"
+        calculate_first_note_percentage
+      end
+
+      def calculate_first_note
+        start = Time.now
+        frequency = {}
+        Tonality::ALL.each do |key, value|
+          puts "<----- starting #{key} ------->"
+          raw_data = File.open("app/data/analysis/formatted/#{value[:symbol]}.json", 'r').first
+          data = JSON.parse(raw_data)
+          data.each do |song|
+            chord = song.first
+            next if chord.nil?
+            if frequency[chord].nil?
+              frequency[chord] = 1
+            else
+              frequency[chord] += 1
+            end
+          end
+        end
+
+        File.open("app/data/analysis/numerical_frequency/first_note.json", 'w') do |file|
+          file.puts frequency.to_json
+        end
+
+        puts "total time: #{Time.now - start}"
+      end
+
+      def calculate_first_note_percentage
+        start = Time.now
+        raw_data = File.open("app/data/analysis/numerical_frequency/first_note.json", 'r').first
+        all = JSON.parse(raw_data)
+        total = all.values.sum
+
+        all.transform_values! do |frequency|
+          frequency*100/total
+        end
+
+        all.delete_if do |_chord, percentage|
+          percentage == 0
+        end
+
+        File.open('app/data/analysis/numerical_frequency/first_note_percentage.json', 'w') do |file|
+          file.puts all.to_json
+        end
+        puts "total time: #{Time.now - start}"
+      end
+
       def calculate
         start = Time.now
         frequency_time = 0
