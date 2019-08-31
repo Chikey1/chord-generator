@@ -89,6 +89,16 @@ module ActiveHashData
         name: 'flat 11',
         remove: [5],
         add: [4],
+      }, {
+        id: 17,
+        symbol: 'addb9',
+        name: 'add flat 9',
+        add: [1],
+      }, {
+        id: 18,
+        symbol: 'addb11',
+        name: 'add flat eleven',
+        add: [4],
       }
     ].freeze
   end

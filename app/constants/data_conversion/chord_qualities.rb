@@ -65,8 +65,11 @@ module DataConversion
     'm2' => 'msus2',
     'Maj7sus2' => 'maj7sus2',
     'maj7s4' => 'maj7sus4',
+    'maj7sus' => 'maj7sus4',
     '7s4' => '7sus4',
+    '7sus' => '7sus4',
     'sus7' => '7sus4',
+    '9sus' => '9sus4',
 
     # ADD
     '6' => 'add6',

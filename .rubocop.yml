@@ -13,11 +13,21 @@ Metrics/BlockLength:
   Exclude:
     - 'spec/**/*.rb'
 
+Metrics/AbcSize:
+  Max: 20 # TODO: aim for 20?
+  Exclude:
+    - 'app/services/data_analysis/**/*.rb'
+
+Metrics/CyclomaticComplexity:
+  Max: 10
+
 Metrics/LineLength:
   Max: 120
 
 Metrics/MethodLength:
-  Max: 20
+  Max: 15 # TODO: aim for 20?
+  Exclude:
+    - 'app/services/data_analysis/**/*.rb'
 
 Style/NumericPredicate:
   Enabled: false

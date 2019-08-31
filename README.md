@@ -1,14 +1,15 @@
 # README
 
-## Updating Data
-
-1. `DataAnalysis::CheckChordsService.call`
-2. `DataAnalysis::DataFormatterService.call`
-3. `DataAnalysis::FrequencyService.calculate`
-4. `DataAnalysis::FrequencyService.calculate_total`
-5. `DataAnalysis::NumericalFrequencyService.recalculate_all`
-8. `DataAnalysis::NumericalProgressionService.calculate`
-9. `DataAnalysis::NumericalProgressionService.calculate_percentage`
+## If you lose your db or want to update your data
+1. `DataAnalysis::DataFormatterService.call`
+    - this will create the chords you need in the backend to index
+    - this will also update the formatted data
+2. `DataAnalysis::NumericalFrequencyService.call`
+    - this will create frequency data from the formatted data
+3. `DataAnalysis::NumericalFrequencyPercentageService.call`
+    - this will create some factors you need for recommendation from the frequency data
+4. `DataAnalysis::NumericalProgressionService.call`
+    - this will create some factors you need for recommendation from the formatted data
 
 ## Sections
 
@@ -40,21 +41,11 @@ is split into the following, all stored as:
 - **formatted** (json 2D array)
   - raw data formatted into `[song][order] = chord_id`
   - reformat by running `DataAnalysis::DataFormatterService.call`
-- **frequency**
-  - how often the macro chord appears
-  - by song (json array of hashes)
-  - by key (json hash)
-  - uses raw data
-  - recalculate frequency by song: `DataAnalysis::FrequencyService.calculate`
-  - recalculate frequency by key: `DataAnalysis::FrequencyService.calculate_total`
 - **numerical_frequency**
-  - how often the numerical chord appears
-  - by song (json array of hashes)
-  - by key (json hash)
-  - uses formatted data
-  - recalculate frequency by song: `DataAnalysis::NumericalFrequencyService.calculate`
-  - recalculate frequency by key: `DataAnalysis::NumericalFrequencyService.calculate_total`
-  - recalculate overall percentages: `DataAnalysis::NumericalFrequencyService.calculate_percentage`
+  - overall
+  - appears with other chords in a song
+  - first note
+  - last note
 - **numerical_progression**
   - what numerical chord is most likely to come after the current
   - uses formatted data
@@ -66,18 +57,8 @@ is split into the following, all stored as:
     - input: clean chord name - `"Dmaj7add13"`
     - ouput: `MacroChord` attributes - `{ key: "D", quality: "maj7add13", base: "maj", modifications: "add13", unknown: ""}`
     - *if unknown is present, there is an error with the input
-- **ChordIdService**
-  - `.id_from_name`
-    - input: clean chord name - `"Dmaj7add13"`, tonality - `"D"`
-    - ouput: integer
-  - `.encode_id`
-  - `.decode_id`
 
 ### DATA ANALYSIS::
-- **CheckChordsService**
-  - `.call`
-    - run in console to check that raw data is correct
-    - will output any unknown chords to console
 - **DataCleanerService**
   - `.clean_line`
     - input: a line of raw data - `title: chord, chord, chord, chord`
@@ -86,25 +67,15 @@ is split into the following, all stored as:
   - `.call`
     - converts raw data into formatted data
     - [see data](#data) for more information
-
-- **FrequencyService**
-  - `.calculate`
-    - calculates macro chord frequencies by song
-  - `.calculate_total`
-    - calculates macro chord frequencies by tonality
-  - [see data](#data) for more information
-
 - **NumericalFrequencyService**
-  - `DataAnalysis::NumericalFrequencyService.recalculate_all`
-    1. `.calculate`
-    2. `.calculate_total`
-    3. `.calculate_percentage`
-    4. `.calculate_first_note`
-    5. `.calculate_first_note_percentage`
+  - `.call`
+    - converts formatted data into factors
+    - [see data](#data) for more information
 
 - **NumericalProgressionService**
-  1. `.calculate`
-  2. `.calculate_percentage`
+  - `.call`
+    - converts formatted data into factors
+    - [see data](#data) for more information
 
 ### OTHER
 - **NoteService**
@@ -124,24 +95,14 @@ is split into the following, all stored as:
     - input: root - "C", mode - "major"
     - output: same as `scale_from_key`
 
-# MODELS
-1. ~~Chord::Base~~
-2. ~~Chord::Modification~~
-
-
-
-
-## NUMERICAL ANAYLYSIS
-### convert to numerical chords
-(steps in while loops)
-1. key: [A-G](#|b)?
-1. add
-2. sus
-3. no
-4. base_chord
-5. other_modification
-
-
+## MODELS
+### Chord::
+- **Base**
+  - ActiveHash
+- **Modification**
+  - ActiveHash
+- **NumericalChord**
+  - ActiveRecord
 
 # CONSTANTS
 
@@ -232,8 +193,4 @@ generate_chords_for_melody
 
 
 
-<<<<<<< Updated upstream
 Melody (macro) -> Melody (numerical) -> Chords (numerical) -> Chords(macro)
-=======
-Melody (macro) -> Melody (numerical) -> Chords (numerical) -> Chords(macro)
->>>>>>> Stashed changes

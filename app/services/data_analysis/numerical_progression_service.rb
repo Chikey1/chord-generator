@@ -3,94 +3,62 @@
 module DataAnalysis
   class NumericalProgressionService
     class << self
-      def recalculate_all
-        puts '~~~~~~~~~~~ CALCULATING PROGRESSION BY KEY ~~~~~~~~~~~'
-        calculate
-        puts '~~~~~~~~~~~ CALCULATING TOTAL PROGRESSION FREQUENCIES ~~~~~~~~~~~'
-        calculate_percentage
+      def call
+        start = Time.now
+        puts '~~~~~~~~~~~ CALCULATING PROGRESSION: NAIVE NEXT ~~~~~~~~~~~'
+        calculate_naive_next
+        puts '~~~~~~~~~~~ CALCULATING PROGRESSION PERCENTAGE: NAIVE NEXT ~~~~~~~~~~~'
+        calculate_naive_next_percentage
+        puts "total time: #{Time.now - start}"
       end
 
-      def calculate
+      def calculate_naive_next
         start = Time.now
-        progression_time = 0
-        progression = {}
-        Tonality::ALL.each do |key, value|
-          puts "<----- starting #{key} ------->"
-          progression[key] = {}
+        progression = []
+        Tonality::ALL.each do |_key, value|
+          print "#{value[:symbol]}  "
           raw_data = File.open("app/data/analysis/formatted/#{value[:symbol]}.json", 'r').first
           data = JSON.parse(raw_data)
-          progression_start = Time.now
-          progression[key] = get_progression_object(data)
-          progression_time += Time.now - progression_start
+
+          data.each do |song|
+            (song.length - 1).times do |i|
+              progression[song[i]] = [] if progression[song[i]].nil?
+              progression[song[i]][song[i + 1]] = 0 if progression[song[i]][song[i + 1]].nil?
+              progression[song[i]][song[i + 1]] += 1
+            end
+          end
         end
+
         File.open('app/data/analysis/numerical_progression/naive_next.json', 'w') do |file|
           file.puts progression.to_json
         end
-        puts "total time: #{Time.now - start}"
-        puts "get_frequency_object: #{progression_time}"
+        puts "\ntime: #{Time.now - start}"
       end
 
-      def calculate_percentage
+      def calculate_naive_next_percentage
         start = Time.now
-        all = combine_progression_frequency
-        all.each do |_from_chord, to_chords|
-          total = to_chords.values.sum
 
-          to_chords.transform_values! do |frequency|
-            frequency * 100 / total
-          end
-
-          to_chords.delete_if do |_chord, percentage|
-            percentage == 0
-          end
-        end
-
-        File.open('app/data/analysis/numerical_progression/naive_next_percentage.json', 'w') do |file|
-          file.puts all.to_json
-        end
-        puts "total time: #{Time.now - start}"
-      end
-
-      private
-
-      def combine_progression_frequency
-        all = {}
         raw_data = File.open('app/data/analysis/numerical_progression/naive_next.json', 'r').first
         data = JSON.parse(raw_data)
-        data.each do |key, from_chords|
-          puts "<----- starting #{key} ------->"
-          from_chords.each do |from_chord, to_chords|
-            all[from_chord] ||= {}
-            to_chords.each do |to_chord, frequency|
-              if all[from_chord][to_chord].nil?
-                all[from_chord][to_chord] = frequency
-              else
-                all[from_chord][to_chord] += frequency
-              end
-            end
-          end
-        end
-        all
-      end
 
-      def get_progression_object(data)
-        progression = {}
+        new_data = data.map do |chord1|
+          next if chord1.nil?
 
-        data.each do |song|
-          (song.length - 1).times do |i|
-            chord_name = song[i].to_s
-            next_chord = song[i + 1].to_s
-            progression[chord_name] ||= {}
+          total = chord1.compact.sum
 
-            if progression[chord_name][next_chord].nil?
-              progression[chord_name][next_chord] = 1
+          chord1.map do |frequency|
+            if frequency.nil?
+              0
             else
-              progression[chord_name][next_chord] += 1
+              (frequency * 100.0 / total).round(1)
             end
           end
         end
 
-        progression
+        File.open('app/data/analysis/numerical_progression/naive_next.json', 'w') do |file|
+          file.puts new_data.to_json
+        end
+        puts "ntime: #{Time.now - start}"
       end
     end
   end
