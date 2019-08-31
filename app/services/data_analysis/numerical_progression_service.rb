@@ -55,10 +55,10 @@ module DataAnalysis
           end
         end
 
-        File.open('app/data/analysis/numerical_progression/naive_next.json', 'w') do |file|
+        File.open('app/data/factors/naive_next.json', 'w') do |file|
           file.puts new_data.to_json
         end
-        puts "ntime: #{Time.now - start}"
+        puts "time: #{Time.now - start}"
       end
     end
   end

@@ -20,6 +20,7 @@
    1. [converter](#converter)
    2. [data analysis](#data-analysis)
    3. [other](#other)
+3. [Chord Generator](#chord-generator)
 
 
 backend: https://drive.google.com/file/d/12H74gR6_ta_tq-g9l5z4RJe-RFU9lgbO/view?usp=sharing
@@ -104,93 +105,22 @@ is split into the following, all stored as:
 - **NumericalChord**
   - ActiveRecord
 
-# CONSTANTS
+## Chord Generator
 
-note
-  name - string
-  symbol - string
+### Harmony
+This is the most important factor when it comes to evaluating the choice.
+This can be calculated from the composition of the chords as well as the notes (weighted by length).
 
-scale
-  name - string
-  semitone_composition - [integer]
-
-enharmonic
-  all - [note.symbol => note.symbol]
-
-key_signature
-  sharps - [note.symbol]
-  flats - [note.symbol]
-
-# ACTIVE HASH
-
-base_chord
-  name
-  symbol
-
-modifications
-  name
-  symbol
-  category
-
-
-tonality
-  symbol - string (comprised of key and mode: currently combined since we usually care about the unique combination)
-  flats - integer
-  sharps - integer
-  type - string
-
-chord_quality (this should be changed into a table eventually)
-  name - string
-  symbol - string
-  type - string
-
-
-<!-- PROPOSAL -->
-chord_quality
-  name
-  symbol - base_chord.symbol + modifications.symbol
-  base_chord - enum(major, minor, dominant_seventh, etc)
-  modifications - [enum(flat_five, etc)]
-
-<!-- END PROPOSAL -->
-
-chord_quality_alt_name
-  all - [chord_quality.symbol => chord_quality.symbol]
-
-clef
-  name - string
-
-
-# MODEL
-time_signature
-  beats - integer
-  value - integer (power of 2)
-
-melody_note
-  note - note.symbol
-  octave - integer
-  length - integer?
-  start - measure_id
-  song_id - song.id
-
-song
-  melody - [melody_note]
-  tonality - tonality.symbol
-  measures - [measures]
-  time_signature_id - time_signature.id
-  clef - clef.name
-
-# SERVICES
-
-generate_chords_for_melody
-
-
-# ANALYSIS (Numerical)
-  data[song][order][chords]
-  cluster chord frequency
-  graph chord transitions
-
-
-
-
-Melody (macro) -> Melody (numerical) -> Chords (numerical) -> Chords(macro)
+### Other Factors
+1. **same song**
+   - what chords are likely to be in the same song with each other
+2. **first note**
+   - what chord is likely to start
+3. **last note**
+   - what chord is likely to end
+4. **naive next**
+   - what chord is likely to follow
+5. **overall frequency**
+   - what chord is likely to appear
+6. **unique chords**
+   - how many unique chords is likely
