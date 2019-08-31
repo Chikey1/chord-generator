@@ -5,8 +5,10 @@
     - this will create the chords you need in the backend to index
     - this will also update the formatted data
 2. `DataAnalysis::NumericalFrequencyService.call`
-    - this will create some factors you need for recommendation from the formatted data
-3. `DataAnalysis::NumericalProgressionService.call`
+    - this will create frequency data from the formatted data
+3. `DataAnalysis::NumericalFrequencyPercentageService.call`
+    - this will create some factors you need for recommendation from the frequency data
+4. `DataAnalysis::NumericalProgressionService.call`
     - this will create some factors you need for recommendation from the formatted data
 
 ## Sections
@@ -40,13 +42,10 @@ is split into the following, all stored as:
   - raw data formatted into `[song][order] = chord_id`
   - reformat by running `DataAnalysis::DataFormatterService.call`
 - **numerical_frequency**
-  - how often the numerical chord appears
-  - by song (json array of hashes)
-  - by key (json hash)
-  - uses formatted data
-  - recalculate frequency by song: `DataAnalysis::NumericalFrequencyService.calculate`
-  - recalculate frequency by key: `DataAnalysis::NumericalFrequencyService.calculate_total`
-  - recalculate overall percentages: `DataAnalysis::NumericalFrequencyService.calculate_percentage`
+  - overall
+  - appears with other chords in a song
+  - first note
+  - last note
 - **numerical_progression**
   - what numerical chord is most likely to come after the current
   - uses formatted data
@@ -58,12 +57,6 @@ is split into the following, all stored as:
     - input: clean chord name - `"Dmaj7add13"`
     - ouput: `MacroChord` attributes - `{ key: "D", quality: "maj7add13", base: "maj", modifications: "add13", unknown: ""}`
     - *if unknown is present, there is an error with the input
-- **ChordIdService**
-  - `.id_from_name`
-    - input: clean chord name - `"Dmaj7add13"`, tonality - `"D"`
-    - ouput: integer
-  - `.encode_id`
-  - `.decode_id`
 
 ### DATA ANALYSIS::
 - **DataCleanerService**
@@ -110,7 +103,6 @@ is split into the following, all stored as:
   - ActiveHash
 - **NumericalChord**
   - ActiveRecord
-
 
 # CONSTANTS
 
