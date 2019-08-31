@@ -32,7 +32,6 @@ module DataAnalysis
         puts "\ntime: #{Time.now - start}"
       end
 
-
       def calculate_unique_chords_percentage
         start = Time.now
         raw_data = File.open('app/data/analysis/numerical_frequency/unique_chords.json', 'r').first

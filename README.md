@@ -10,6 +10,8 @@
     - this will create some factors you need for recommendation from the frequency data
 4. `DataAnalysis::NumericalProgressionService.call`
     - this will create some factors you need for recommendation from the formatted data
+4. `DataAnalysis::PerSongFrequencyService.call`
+    - this will create some factors you need for recommendation from the formatted data
 
 ## Sections
 
