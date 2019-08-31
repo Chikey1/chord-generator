@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
-
 describe Converter::MacroChordService do
   describe '.call' do
     def get_key(name)
