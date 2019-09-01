@@ -13,6 +13,12 @@
 4. `DataAnalysis::PerSongFrequencyService.call`
     - this will create some factors you need for recommendation from the formatted data
 
+## Pre-Commit
+
+1. `rubocop`
+2. `eslint`
+3. `yarn flow`
+
 ## Sections
 
 1. [Data](#data)
