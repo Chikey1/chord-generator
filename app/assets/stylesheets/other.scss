@@ -1,0 +1,104 @@
+
+.edit-element {
+  .type-option {
+    height: 50px;
+    width: 50px;
+    display: flex;
+    position: relative;
+    justify-content: center;
+
+    &:hover::before {
+      content: " ";
+      position: absolute;
+      height: 48px;
+      width: 48px;
+      background-color: blue;
+      opacity: 0.2;
+      bottom: 0px;
+    }
+
+    &.selected {
+      &::before {
+        content: " ";
+        position: absolute;
+        height: 48px;
+        width: 48px;
+        background-color: black;
+        opacity: 0.2;
+        bottom: 0px;
+      }
+
+
+      &:hover::before {
+        background-color: black;
+      }
+    }
+
+    .accidental {
+      position: relative;
+      width: 20px;
+      height: 22px;
+      font-size: 20px;
+
+
+      &.sharp::after {
+        position: relative;
+        content: "\266F";
+        width: 20px;
+        height: 22px;
+        top: 1px;
+      }
+
+      &.flat::after {
+        position: relative;
+        content: "\266D";
+        width: 20px;
+        height: 22px;
+        font-size: 24px;
+        bottom: 2px;
+      }
+
+      &.natural::after {
+        position: relative;
+        content: "\266E";
+        width: 20px;
+        height: 22px;
+        top: 1px;
+      }
+    }
+
+    .note {
+      &.whole {
+        top: 12px;
+      }
+
+      &.half,
+      &.quarter,
+      &.eighth {
+        top: 22px;
+      }
+
+      &.eighth {
+        right: 2px;
+      }
+    }
+
+    .rest {
+      &.whole {
+        top: 14px;
+      }
+
+      &.half {
+        top: 10px;
+      }
+
+      &.quarter {
+        top: 4px;
+      }
+
+      &.eighth {
+        top: 8px;
+      }
+    }
+  }
+}

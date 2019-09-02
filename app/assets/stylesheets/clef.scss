@@ -1,0 +1,11 @@
+.clef {
+  background-repeat: no-repeat;
+  background-size: contain;
+  content: ' ';
+
+  &.treble {
+    background-image: image-url('treble_clef.svg');
+    height: 54px;
+    width: 48px;
+  }
+}

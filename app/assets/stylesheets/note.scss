@@ -1,0 +1,231 @@
+.note {
+  position: relative;
+  width: 12px;
+  height: 32px;
+
+  .line-note {
+    position: relative;
+    height: 1px;
+    width: 20px;
+    top: 4px;
+    right: 4px;
+
+    &::before {
+      height: 1px;
+      width: 20px;
+      box-sizing: border-box;
+      border-top: 1px solid #222222;
+      position: absolute;
+      content: "";
+    }
+  }
+
+  .accidental {
+    right: 7px;
+    position: absolute;
+    bottom: 20px;
+    width: 20px;
+    height: 22px;
+    font-size: 20px;
+
+
+    &.sharp::after {
+      position: absolute;
+      content: "\266F";
+      width: 20px;
+      height: 22px;
+    }
+
+    &.flat::after {
+      position: relative;
+      content: "\266D";
+      width: 20px;
+      height: 22px;
+      font-size: 24px;
+      bottom: 8px;
+    }
+
+    &.natural::after {
+      position: absolute;
+      content: "\266E";
+      width: 20px;
+      height: 22px;
+    }
+  }
+
+  .head {
+    position: relative;
+    height: 32px;
+    content: "";
+
+    &::before {
+      height: 8px;
+      width: 12px;
+      position: absolute;
+      content: "";
+      border-radius: 50%;
+    }
+  }
+
+  &.half,
+  &.quarter,
+  &.eighth {
+    .head::after {
+      content: "";
+      height: 28px;
+      width: 1px;
+      background-color: black;
+      position: absolute;
+      right: 0;
+    }
+
+    &.stem-up {
+      .head {
+        width: 12px;
+        &::after {
+          top: -24px;
+        }
+      }
+
+      .flag {
+        position: absolute;
+        bottom: 56px;
+        left: 11px;
+
+        &::before {
+          transform: rotatez(15deg);
+        }
+      }
+    }
+
+    &.stem-down {
+      .head {
+        width: 1px;
+        &::after {
+          top: 4px;
+        }
+      }
+      .flag {
+        position: absolute;
+        bottom: 5px;
+        left: 1px;
+
+        &::before {
+          transform: rotatez(-16deg);
+        }
+      }
+    }
+  }
+
+  &.whole {
+    .head::before {
+      box-sizing: border-box;
+      border: 1px solid black;
+      transform: rotatez(-5deg);
+      border-left-width: 3px;
+      border-right-width: 3px;
+    }
+  }
+
+  &.half {
+    .head::before {
+      transform: rotatez(-15deg);
+      box-sizing: border-box;
+      border: 1px solid black;
+      border-top-width: 2.18181818px;
+      border-bottom-width: 2.18181818px;
+    }
+  }
+
+  &.quarter,
+  &.eighth {
+    .head::before {
+      transform: rotatez(-15deg);
+      background-color: black;
+    }
+  }
+
+  &.eighth {
+    .flag {
+      &::before {
+        content: "";
+        position: absolute;
+        height: 8px;
+        width: 10px;
+        box-sizing: border-box;
+        border-top: 5px solid black;
+      }
+    }
+  }
+}
+
+
+.ghost-note {
+  position: relative;
+  height: 7px;
+  content: "";
+  width: 12px;
+
+  .line-note {
+    position: relative;
+    height: 1px;
+    width: 20px;
+    top: 4px;
+    right: 4px;
+
+    &::before {
+      height: 1px;
+      width: 20px;
+      box-sizing: border-box;
+      border-top: 1px solid transparent;
+      position: absolute;
+      content: "";
+    }
+  }
+
+  .head {
+    position: relative;
+    height: 7px;
+    content: "";
+
+    &::before {
+      height: 8px;
+      width: 12px;
+      position: absolute;
+      content: "";
+      border-radius: 50%;
+      transform: rotatez(-15deg);
+      background-color: transparent;
+    }
+  }
+
+  &.selected {
+    .line-note {
+      &::before {
+        border-color: #222222;
+      }
+    }
+
+    .head {
+      &::before {
+        background-color:#222222;
+      }
+    }
+  }
+
+  &:hover {
+    .line-note {
+      &::before {
+        border-color: blue;
+        opacity: 0.5;
+      }
+    }
+
+    .head {
+      &::before {
+        background-color: blue;
+        opacity: 0.5;
+      }
+    }
+  }
+}
