@@ -3,6 +3,7 @@ import Score from "components/Score"
 import DummyScore from "components/DummyScore"
 import Button from "components/Button"
 import EditMeasure from "components/EditMeasure"
+import { ODE_TO_JOY } from "components/constants/DummyScores"
 
 class Base extends React.Component {
   state = {
@@ -86,6 +87,10 @@ class Base extends React.Component {
     return null
   }
 
+  populateDemo = () => {
+    this.setState({measures: ODE_TO_JOY})
+  }
+
   renderEditMeasure = (selectedMeasure) => {
     const { editing } = this.state
     if(editing && selectedMeasure) {
@@ -113,9 +118,6 @@ class Base extends React.Component {
       <div className='p-5'>
         <h2 className="text-center">Chord Generator</h2>
         <div className="pt-5 pb-3">
-          <DummyScore />
-        </div>
-        <div className="pt-5 pb-3">
           <Score
             clef={clef}
             timeSignature={timeSignature}
@@ -139,6 +141,9 @@ class Base extends React.Component {
           </Button>
         </div>
         <div className="d-flex justify-content-center py-2">
+          <Button onClick={this.populateDemo} type='dark' disabled={deleting || editing}>
+            Demo Data
+          </Button>
           <Button type='success' disabled={deleting || editing}>Generate Chords!</Button>
         </div>
       </div>
