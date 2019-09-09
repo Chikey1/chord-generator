@@ -3,9 +3,7 @@ module ChordGenerator
     class << self
       include DataConversion::Enharmonics
 
-      def call
-        data = JSON.parse(File.open("app/dummy_data/ode_to_joy.json", 'r').first)
-
+      def call(data)
         tonality = Tonality::ALL[data["key_signature"]]
         tonic = get_tonic(tonality)
 
@@ -19,12 +17,13 @@ module ChordGenerator
           notes, time_signature, data["chord_interval"]
         )
         chord_intervals = ChordGenerator::ChordIntervalService.get_weighted_chord_intervals(chord_intervals)
+
         chord_ids = ChordGenerator::CalculateChordsService.call(chord_intervals, tonality[:type])
         chord_symbols = chord_ids.map do |id|
           next if id.nil?
           Converter::MacroChordService.call(id, tonic)
         end
-        byebug
+        return { chords: chord_symbols }
       end
     private
       def get_tonic(tonality)

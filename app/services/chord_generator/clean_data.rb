@@ -5,8 +5,9 @@ module ChordGenerator
       include DataConversion::NoteLengths
 
       def call(measures, key_signature)
+        key_signature_accidentals = get_key_signature(key_signature)
         measures.map do |measure|
-          accidentals = []
+          accidentals = key_signature_accidentals
           measure.map do |element|
             value = clean_value(element["value"])
 
@@ -14,12 +15,10 @@ module ChordGenerator
 
             {
               length: convert_length(element["length"]),
-              symbol: get_symbol(value, accidentals, key_signature),
+              symbol: get_symbol(value, accidentals),
             }
           end
         end.flatten
-      rescue
-        false
       end
 
     private
@@ -27,9 +26,8 @@ module ChordGenerator
         Rational(1, TO_NUMBER[length])
       end
 
-      def get_symbol(value, accidentals, key_signature)
+      def get_symbol(value, accidentals)
         symbol = value
-        symbol = with_key_signature(symbol, key_signature)
         return symbol if accidentals.empty?
 
         accidentals.each do |accidental_value, accidental|
@@ -47,18 +45,22 @@ module ChordGenerator
 
       def with_accidental(symbol, accidental)
         case accidental
-        when "sharp"
+        when "sharp", "#"
           symbol = symbol + "#"
-        when "flat"
+        when "flat", "b"
           symbol = symbol + "b"
         else
           symbol
         end
       end
 
-      # TODO: implement key_signature
-      def with_key_signature(symbol, key_signature)
-        symbol
+      def get_key_signature(key_signature)
+        accidentals = []
+        accidentals += KeySignature::FLATS.first(key_signature[:flats])
+        accidentals += KeySignature::SHARPS.first(key_signature[:sharps])
+        accidentals.map do |accidental|
+          [accidental[0], accidental[1]]
+        end
       end
     end
   end

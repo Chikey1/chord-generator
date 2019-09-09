@@ -3,28 +3,29 @@ module ChordGenerator
     class << self
       def call(chord_intervals, tonality_type)
         chord_intervals = chord_interval_matrix(chord_intervals)
+
         harmony_matrix = chord_intervals * composition_matrix.t # chord_interval x chord_ids
-
-        modified_array = with_overall(harmony_matrix, tonality_type, 10)
-
-        modified_array = with_first_note(modified_array, tonality_type, 300)
-
+        # 6.25
+        modified_array = with_overall(harmony_matrix, tonality_type, 0.5)
+        # 6.25
+        modified_array = with_first_note(modified_array, tonality_type, 1)
+        # 6.25
         modified_array = with_last_note(modified_array, tonality_type, 1)
-
-        modified_3D = with_naive_next(modified_array, tonality_type, 1, 0.5)
-
-        modified_3D = with_grouping(modified_3D, 2)
+        # 6.25
+        modified_3D = with_naive_next(modified_array, tonality_type, 1, 0.4)
+        # 6.25, 3331.25
+        modified_3D = with_grouping(modified_3D, 1)
 
         chord_ids = Array.new(modified_array.length)
         chord_ids = get_chord_ids(chord_ids, modified_3D)
-        handicap_weight = 0
-        last_length = chord_ids.uniq.length
-        while last_length < 3 && handicap_weight < 200
-          handicapped_array = handicap(modified_3D.dup, chord_ids, handicap_weight)
-          chord_ids = get_chord_ids(chord_ids, handicapped_array)
-          last_length = chord_ids.uniq.length
-          handicap_weight += 10
-        end
+        # handicap_weight = 0
+        # last_length = chord_ids.uniq.length
+        # while last_length < 3 && handicap_weight < 200
+        #   handicapped_array = handicap(modified_3D.dup, chord_ids, handicap_weight)
+        #   chord_ids = get_chord_ids(chord_ids, handicapped_array)
+        #   last_length = chord_ids.uniq.length
+        #   handicap_weight += 10
+        # end
         chord_ids
       end
 
@@ -46,6 +47,9 @@ module ChordGenerator
         modified_3D.map.with_index do |chord_interval, index|
           chord = chord_ids[index]
           max = 0
+          # sums = chord_interval.map { |i| i.max }
+          # max = sums.max
+          # chord = sums.index(max)
           if next_chord.nil?
             chord_interval.each_with_index do |chords, chord_id|
               if chords.max > max
@@ -55,6 +59,7 @@ module ChordGenerator
               end
             end
           else
+            next_chord == 1 if next_chord == 0
             chord_id = next_chord
             chords = chord_interval[chord_id]
             if chords.max > 0
@@ -87,17 +92,16 @@ module ChordGenerator
         # next chords are columns
 
         modified_array.map.with_index do |chord_interval, i|
-          if i == modified_array.length - 1
-            Array.new(array.length, chord_interval)
-          else
-            chord_interval.map.with_index do |chord_value, chord_id|
+          chord_interval.map.with_index do |chord_value, chord_id|
+            if i == modified_array.length - 1
+              Array.new(array.length, chord_value)
+            else
               array[chord_id].map.with_index do |next_chord_value, next_chord_id|
+                next_chord_percent = next_chord_value*modified_array[i+1][next_chord_id]*weighting/100
                 if next_chord_id == chord_id
-                  percent = chord_value + (weighting * next_chord_value)
-                  percent * repeat #make it unlikely to repeat chords
+                  (chord_value + next_chord_percent)*repeat #make it unlikely to repeat chords
                 else
-                  next_chord_percent = next_chord_value*modified_array[i+1][next_chord_id]/100
-                  chord_value + (weighting * next_chord_percent)
+                  chord_value + next_chord_percent
                 end
               end
             end
@@ -123,6 +127,7 @@ module ChordGenerator
 
       def with_first_note(modified_array, type, weighting)
         array = JSON.parse(File.open("app/data/matrices/#{type}/first_note.json", 'r').first)
+
         # 1 row
         # chords are columns
         array.each_with_index do |percent, i|

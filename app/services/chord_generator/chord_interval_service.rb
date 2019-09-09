@@ -13,7 +13,7 @@ module ChordGenerator
           elsif remaining > 0
             interval.push({
               length: remaining,
-              symbol: note[:symbol],
+              number: note[:number],
             })
 
             leftover = note[:length] - remaining
@@ -22,7 +22,7 @@ module ChordGenerator
             interval = []
             interval.push({
               length: leftover,
-              symbol: note[:symbol],
+              number: note[:number],
             })
           else
             chord_intervals.push(interval)

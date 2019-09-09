@@ -9,7 +9,6 @@ module Converter
         base = NoteService.get_note_from_distance(tonic, chord.base - 1).symbol
         base + quality
       end
-
     end
   end
 end

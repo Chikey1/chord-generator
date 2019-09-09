@@ -27,7 +27,7 @@ module DataAnalysis
         start = Time.now
         frequency = []
         Tonality::ALL.each do |_key, value|
-          next if (isMinor == value[:symbol].end_with?("m"))
+          next if (isMinor != value[:symbol].end_with?("m"))
           print "#{value[:symbol]}  "
           raw_data = File.open("app/data/analysis/formatted/#{value[:symbol]}.json", 'r').first
           data = JSON.parse(raw_data)
@@ -75,7 +75,7 @@ module DataAnalysis
         start = Time.now
         frequency = []
         Tonality::ALL.each do |_key, value|
-          next if (isMinor == value[:symbol].end_with?("m"))
+          next if (isMinor != value[:symbol].end_with?("m"))
           print "#{value[:symbol]}  "
           raw_data = File.open("app/data/analysis/formatted/#{value[:symbol]}.json", 'r').first
           data = JSON.parse(raw_data)
@@ -103,7 +103,7 @@ module DataAnalysis
         start = Time.now
         frequency = []
         Tonality::ALL.each do |_key, value|
-          next if (isMinor == value[:symbol].end_with?("m"))
+          next if (isMinor != value[:symbol].end_with?("m"))
           print "#{value[:symbol]}  "
           raw_data = File.open("app/data/analysis/formatted/#{value[:symbol]}.json", 'r').first
           data = JSON.parse(raw_data)
