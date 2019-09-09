@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ChordGenerator
   class ChordIntervalService
     class << self
@@ -6,24 +8,24 @@ module ChordGenerator
         interval = []
 
         notes.each do |note|
-          remaining = time_signature/changes - get_beats(interval)
+          remaining = time_signature / changes - get_beats(interval)
 
           if remaining > 0 && remaining >= note[:length]
             interval.push(note)
           elsif remaining > 0
-            interval.push({
+            interval.push(
               length: remaining,
-              symbol: note[:symbol],
-            })
+              number: note[:number]
+            )
 
             leftover = note[:length] - remaining
             chord_intervals.push(interval)
 
             interval = []
-            interval.push({
+            interval.push(
               length: leftover,
-              symbol: note[:symbol],
-            })
+              number: note[:number]
+            )
           else
             chord_intervals.push(interval)
             interval = []
@@ -39,13 +41,15 @@ module ChordGenerator
           weighted_interval = Array.new(13, 0)
           interval.each do |note|
             next if note[:number].nil?
+
             weighted_interval[note[:number]] += note[:length]
           end
           weighted_interval
         end
       end
 
-    private
+      private
+
       def get_beats(interval)
         interval.map do |note|
           note[:length]

@@ -6,19 +6,19 @@ module DataAnalysis
       def call
         start = Time.now
         puts '~~~~~~~~~~~ CALCULATING PERCENTAGE: OVERALL (MAJOR) ~~~~~~~~~~~'
-        calculate_overall_percentage("major")
+        calculate_overall_percentage('major')
         puts '~~~~~~~~~~~ CALCULATING PERCENTAGE: OVERALL (MINOR) ~~~~~~~~~~~'
-        calculate_overall_percentage("minor")
+        calculate_overall_percentage('minor')
         puts '~~~~~~~~~~~ CALCULATING PERCENTAGE: SAME SONG APPEARANCE ~~~~~~~~~~~'
         calculate_same_song_percentage
         puts '~~~~~~~~~~~ CALCULATING PERCENTAGE: FIRST NOTE (MAJOR) ~~~~~~~~~~~'
-        calculate_first_note_percentage("major")
+        calculate_first_note_percentage('major')
         puts '~~~~~~~~~~~ CALCULATING PERCENTAGE: FIRST NOTE (MINOR) ~~~~~~~~~~~'
-        calculate_first_note_percentage("minor")
+        calculate_first_note_percentage('minor')
         puts '~~~~~~~~~~~ CALCULATING PERCENTAGE: LAST NOTE (MAJOR) ~~~~~~~~~~~'
-        calculate_last_note_percentage("major")
+        calculate_last_note_percentage('major')
         puts '~~~~~~~~~~~ CALCULATING PERCENTAGE: LAST NOTE (MINOR) ~~~~~~~~~~~'
-        calculate_last_note_percentage("minor")
+        calculate_last_note_percentage('minor')
         puts "TOTAL TIME: #{Time.now - start}"
       end
 

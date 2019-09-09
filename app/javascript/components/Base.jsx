@@ -28,6 +28,7 @@ class Base extends React.Component {
     chordInterval: 1,
     editKeySignature: false,
     chords: [],
+    error: null,
   }
 
   handleKeySignatureClick = () => {
@@ -100,7 +101,7 @@ class Base extends React.Component {
   }
 
   populateDemo = () => {
-    const demo = C_SHARP_MINOR_MELODIC()
+    const demo = ODE_TO_JOY()
     this.setState({
       measures: demo.measures,
       keySignature: demo.keySignature,
@@ -134,15 +135,30 @@ class Base extends React.Component {
       if (response.status !== 200) {
         console.log('Looks like there was a problem. Status Code: ' +
           response.status);
+        this.setState({
+          error: 'Error, Status Code: ' + response.status + " :("
+        })
         return;
       }
 
       response.json().then((data) => {
         console.log(data);
+        if(data["error"]) {
+          this.setState({
+            error: data["error"]
+          })
+        } else if (data["chords"]) {
+          this.setState({
+            chords: data["chords"]
+          })
+        }
       });
 
     }).catch((err) => {
       console.log('Fetch Error :-S', err);
+      this.setState({
+        error: 'Fetch Error :-S'
+      })
     })
   }
 

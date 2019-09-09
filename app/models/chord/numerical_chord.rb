@@ -91,7 +91,12 @@ module Chord
         composition -= mod.remove
         composition += mod.add
       end
-      composition
+      composition.map do |note|
+        comp = note + base - 1
+        comp -= 12 while comp > 11
+        comp += 12 while comp < 0
+        comp
+      end
     end
   end
 end

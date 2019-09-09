@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ChordGenerator
   class CleanData
     class << self
@@ -5,31 +7,30 @@ module ChordGenerator
       include DataConversion::NoteLengths
 
       def call(measures, key_signature)
+        key_signature_accidentals = get_key_signature(key_signature)
         measures.map do |measure|
-          accidentals = []
+          accidentals = key_signature_accidentals
           measure.map do |element|
-            value = clean_value(element["value"])
+            value = clean_value(element['value'])
 
-            accidentals.push([value, element["accidental"]]) if element["accidental"].present?
+            accidentals.push([value, element['accidental']]) if element['accidental'].present?
 
             {
-              length: convert_length(element["length"]),
-              symbol: get_symbol(value, accidentals, key_signature),
+              length: convert_length(element['length']),
+              symbol: get_symbol(value, accidentals),
             }
           end
         end.flatten
-      rescue
-        false
       end
 
-    private
+      private
+
       def convert_length(length)
         Rational(1, TO_NUMBER[length])
       end
 
-      def get_symbol(value, accidentals, key_signature)
+      def get_symbol(value, accidentals)
         symbol = value
-        symbol = with_key_signature(symbol, key_signature)
         return symbol if accidentals.empty?
 
         accidentals.each do |accidental_value, accidental|
@@ -37,28 +38,35 @@ module ChordGenerator
         end
 
         return symbol if TO_BACKEND[symbol].nil?
+
         TO_BACKEND[symbol]
       end
 
       def clean_value(value)
         return nil if value.nil? # rest
         symbol = value.chop.upcase
+        symbol
       end
 
       def with_accidental(symbol, accidental)
         case accidental
-        when "sharp"
-          symbol = symbol + "#"
-        when "flat"
-          symbol = symbol + "b"
+        when 'sharp', '#'
+          symbol += '#'
+        when 'flat', 'b'
+          symbol += 'b'
         else
           symbol
         end
+        symbol
       end
 
-      # TODO: implement key_signature
-      def with_key_signature(symbol, key_signature)
-        symbol
+      def get_key_signature(key_signature)
+        accidentals = []
+        accidentals += KeySignature::FLATS.first(key_signature[:flats])
+        accidentals += KeySignature::SHARPS.first(key_signature[:sharps])
+        accidentals.map do |accidental|
+          [accidental[0], accidental[1]]
+        end
       end
     end
   end

@@ -1,16 +1,18 @@
+# frozen_string_literal: true
+
 module Matrices
   class GenerateService
     class << self
       def call
         update_composition_matrix
-        update_naive_next_matrix("major")
-        update_naive_next_matrix("minor")
-        update_first_note_matrix("major")
-        update_first_note_matrix("minor")
-        update_last_note_matrix("major")
-        update_last_note_matrix("minor")
-        update_overall_matrix("major")
-        update_overall_matrix("minor")
+        update_naive_next_matrix('major')
+        update_naive_next_matrix('minor')
+        update_first_note_matrix('major')
+        update_first_note_matrix('minor')
+        update_last_note_matrix('major')
+        update_last_note_matrix('minor')
+        update_overall_matrix('major')
+        update_overall_matrix('minor')
         update_grouping_matrix
       end
 
@@ -19,13 +21,13 @@ module Matrices
           Array.new(13, 0)
         end
         Chord::NumericalChord.find_each do |chord|
-          weight = (1.0/chord.composition.length).round(3)
+          weight = (1.0 / chord.composition.length).round(3)
           chord.composition.each do |note|
             matrix[chord.id][note] = weight
           end
         end
 
-        File.open("app/data/matrices/chord_composition.json", 'w') do |file|
+        File.open('app/data/matrices/chord_composition.json', 'w') do |file|
           file.puts matrix.to_json
         end
       end
@@ -38,6 +40,7 @@ module Matrices
         end
         naive_next.each_with_index do |relations, chord1|
           next if relations.nil?
+
           relations.each_with_index do |percent, chord2|
             matrix[chord1][chord2] = percent
           end
@@ -54,6 +57,7 @@ module Matrices
         matrix = Array.new(dim, 0)
         first_note.each_with_index do |percent, chord|
           next if percent.nil?
+
           matrix[chord] = percent
         end
 
@@ -68,6 +72,7 @@ module Matrices
         matrix = Array.new(dim, 0)
         last_note.each_with_index do |percent, chord|
           next if percent.nil?
+
           matrix[chord] = percent
         end
 
@@ -82,6 +87,7 @@ module Matrices
         matrix = Array.new(dim, 0)
         overall.each_with_index do |percent, chord|
           next if percent.nil?
+
           matrix[chord] = percent
         end
 
@@ -92,19 +98,20 @@ module Matrices
 
       def update_grouping_matrix
         dim = Chord::NumericalChord.count + 1
-        grouping = JSON.parse(File.open("app/data/factors/same_song_frequency.json", 'r').first)
+        grouping = JSON.parse(File.open('app/data/factors/same_song_frequency.json', 'r').first)
         matrix = Array.new(dim) do
           Array.new(dim, 0)
         end
 
         grouping.each_with_index do |relations, chord1|
           next if relations.nil?
+
           relations.each_with_index do |percent, chord2|
             matrix[chord1][chord2] = percent
           end
         end
 
-        File.open("app/data/matrices/grouping.json", 'w') do |file|
+        File.open('app/data/matrices/grouping.json', 'w') do |file|
           file.puts matrix.to_json
         end
       end

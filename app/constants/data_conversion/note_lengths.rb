@@ -2,11 +2,11 @@
 
 module DataConversion
   module NoteLengths
-    WHOLE = "whole"
-    HALF = "half"
-    QUARTER = "quarter"
-    EIGHTH = "eighth"
-    SIXTEENTH = "sixteenth"
+    WHOLE = 'whole'
+    HALF = 'half'
+    QUARTER = 'quarter'
+    EIGHTH = 'eighth'
+    SIXTEENTH = 'sixteenth'
 
     TO_NUMBER = {
       WHOLE => 1,
