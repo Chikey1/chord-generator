@@ -5,15 +5,15 @@ module ChordGenerator
         chord_intervals = chord_interval_matrix(chord_intervals)
 
         harmony_matrix = chord_intervals * composition_matrix.t # chord_interval x chord_ids
-        # 6.25
+
         modified_array = with_overall(harmony_matrix, tonality_type, 0.5)
-        # 6.25
+
         modified_array = with_first_note(modified_array, tonality_type, 1)
-        # 6.25
+
         modified_array = with_last_note(modified_array, tonality_type, 1)
-        # 6.25
+
         modified_3D = with_naive_next(modified_array, tonality_type, 1, 0.4)
-        # 6.25, 3331.25
+
         modified_3D = with_grouping(modified_3D, 1)
 
         chord_ids = Array.new(modified_array.length)
