@@ -19,6 +19,7 @@ function Score ({
   editing,
   deleting,
   onKeySignatureClick,
+  chords,
 }) {
   return (
     <Staff>
@@ -51,6 +52,7 @@ function Score ({
               <Measure
                 data={measure}
                 clef={clef}
+                chord={chords[index]}
               />
             </StaffElement>
             {index + 1 < measures.length && <StaffElement><Bar /></StaffElement>}

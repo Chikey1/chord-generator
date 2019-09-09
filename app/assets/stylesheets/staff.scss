@@ -1,7 +1,8 @@
-/* thanks to: https://codepen.io/gvissing/pen/BKmmpJ */
+
 
 .staff {
   font-size: 0;
+  /* thanks to: https://codepen.io/gvissing/pen/BKmmpJ for .staff */
   background-image: linear-gradient(180deg, #999 0, #999 1px, transparent 1px, transparent 8px, #999 8px, #999 9px, transparent 9px, transparent 16px, #999 16px, #999 17px, transparent 17px, transparent 24px, #999 24px, #999 25px, transparent 25px, transparent 32px, #999 32px, #999 33px, transparent 33px);
   background-size: 100% 100px;
   margin-bottom: -67px;
@@ -77,6 +78,15 @@
     .measure {
       height: 33px;
       min-width: 100px;
+      position: relative;
+
+      .chord {
+        position: absolute;
+        height: 20px;
+        top: -40px;
+        padding-left: 5px;
+        font-size: 16px;
+      }
     }
 
     .rest {

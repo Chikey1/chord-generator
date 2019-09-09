@@ -4,9 +4,10 @@ import MelodyNote from "components/staff/MelodyNote"
 import Rest from "components/staff/Rest"
 import StaffElement from "components/staff/StaffElement"
 
-function Measure ({data, clef}) {
+function Measure ({data, clef, chord}) {
   return (
     <div className="measure">
+      <div className="chord">{chord}</div>
       {data.map((entity, index) => {
         return(
           <StaffElement key={index}>

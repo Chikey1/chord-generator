@@ -5,7 +5,6 @@ import EditMeasure from "components/EditMeasure"
 import { ODE_TO_JOY, C_SHARP_MINOR_MELODIC } from "constants/DummyScores"
 import EditKeySignature from "components/EditKeySignature"
 import { post } from "utility/api"
-import Rest from "components/staff/Rest"
 
 class Base extends React.Component {
   state = {
@@ -26,8 +25,9 @@ class Base extends React.Component {
     editing: false,
     selectedMeasure: null,
     keySignature: "C major",
-    chordInterval: 2,
+    chordInterval: 1,
     editKeySignature: false,
+    chords: [],
   }
 
   handleKeySignatureClick = () => {
@@ -170,7 +170,7 @@ class Base extends React.Component {
   }
 
   render () {
-    const { timeSignature, clef, measures, deleting, editing, selectedMeasure, keySignature } = this.state
+    const { timeSignature, clef, measures, deleting, editing, selectedMeasure, keySignature, chords } = this.state
     const selectedMeasureId = selectedMeasure ? selectedMeasure.id : null
     return (
       <div className='p-5'>
@@ -183,6 +183,7 @@ class Base extends React.Component {
             timeSignature={timeSignature}
             keySignature={keySignature}
             measures={measures}
+            chords={chords}
             onKeySignatureClick={this.handleKeySignatureClick}
             onMeasureClick={this.handleMeasureClick}
             selectedMeasure={selectedMeasureId}
