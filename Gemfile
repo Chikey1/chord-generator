@@ -61,3 +61,9 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 gem 'rubocop', '~> 0.74.0', require: false
 gem 'active_hash', '~> 2.2.1'
 gem "factory_bot_rails"
+gem "matrix"
+gem "extendmatrix"
+gem "nmatrix"
+
+gem 'webpacker'
+gem 'react-rails'

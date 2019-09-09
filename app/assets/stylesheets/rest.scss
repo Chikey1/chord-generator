@@ -1,0 +1,123 @@
+.rest {
+  background-size: contain;
+  position: relative;
+  background-repeat: no-repeat;
+
+  &.whole {
+    position: relative;
+    height: 8px;
+    width: 10px;
+
+    &::before {
+      content: "";
+      bottom: 5px;
+      position: absolute;
+      height: 5px;
+      width: 14px;
+      background-color: black;
+    }
+
+    &::after {
+      content: "";
+      bottom: 2px;
+      position: absolute;
+      height: 8px;
+      width: 24px;
+      right: -9px;
+      box-sizing: border-box;
+      border-top: 1px solid #222222;
+    }
+  }
+
+  &.half {
+    position: relative;
+    height: 8px;
+    width: 10px;
+
+    &::before {
+      content: "";
+      bottom: 1px;
+      position: absolute;
+      height: 5px;
+      width: 14px;
+      background-color: black;
+    }
+
+    &::after {
+      content: "";
+      bottom: 1px;
+      position: absolute;
+      height: 8px;
+      width: 24px;
+      right: -9px;
+      box-sizing: border-box;
+      border-bottom: 1px solid #222222;
+    }
+  }
+
+  &.half {
+    position: relative;
+    height: 8px;
+    width: 10px;
+
+    &::before {
+      content: "";
+      bottom: 1px;
+      position: absolute;
+      height: 5px;
+      width: 14px;
+      background-color: black;
+    }
+
+    &::after {
+      content: "";
+      bottom: 1px;
+      position: absolute;
+      height: 8px;
+      width: 24px;
+      right: -9px;
+      box-sizing: border-box;
+      border-bottom: 1px solid #222222;
+    }
+  }
+
+  &.half {
+    position: relative;
+    height: 8px;
+    width: 10px;
+
+    &::before {
+      content: "";
+      bottom: 1px;
+      position: absolute;
+      height: 5px;
+      width: 14px;
+      background-color: black;
+    }
+
+    &::after {
+      content: "";
+      bottom: 1px;
+      position: absolute;
+      height: 8px;
+      width: 24px;
+      right: -9px;
+      box-sizing: border-box;
+      border-bottom: 1px solid #222222;
+    }
+  }
+
+  &.quarter {
+    content: ' ';
+    background-image: image-url('quarter_rest.svg');
+    height: 23px;
+    width: 10px;
+  }
+
+  &.eighth {
+    content: ' ';
+    background-image: image-url('eighth_rest.svg');
+    height: 16px;
+    width: 10px;
+  }
+}

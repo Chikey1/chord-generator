@@ -1,0 +1,58 @@
+.edit-key-signature {
+  .staff {
+    height: 90px;
+  }
+}
+.edit-element {
+  .staff {
+    padding-left: 40px;
+  }
+
+  .type-option {
+    height: 50px;
+    width: 50px;
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+
+    &:hover::before {
+      content: " ";
+      position: absolute;
+      height: 48px;
+      width: 48px;
+      background-color: blue;
+      opacity: 0.2;
+      bottom: 0px;
+    }
+
+    &.selected {
+      &::before {
+        content: " ";
+        position: absolute;
+        height: 48px;
+        width: 48px;
+        background-color: black;
+        opacity: 0.2;
+        bottom: 0px;
+      }
+
+
+      &:hover::before {
+        background-color: black;
+      }
+    }
+
+    .rest.whole {
+      top: 3px;
+    }
+
+    .note {
+      .half,
+      .quarter,
+      .eighth {
+        bottom: 0px;
+      }
+    }
+  }
+}

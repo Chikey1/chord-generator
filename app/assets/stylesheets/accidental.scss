@@ -1,0 +1,23 @@
+.accidental {
+  content: ' ';
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position-y: center;
+  width: 11px;
+
+  &.sharp {
+    background-image: image-url('sharp.svg');
+    height: 22px;
+  }
+
+  &.flat {
+    background-image: image-url('flat.svg');
+    height: 20px;
+  }
+
+  &.natural {
+    background-image: image-url('natural.svg');
+    height: 27px;
+  }
+}
+
