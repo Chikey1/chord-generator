@@ -5,17 +5,23 @@ module DataAnalysis
     class << self
       def call
         start = Time.now
-        puts '~~~~~~~~~~~ CALCULATING PROGRESSION: NAIVE NEXT ~~~~~~~~~~~'
-        calculate_naive_next
-        puts '~~~~~~~~~~~ CALCULATING PROGRESSION PERCENTAGE: NAIVE NEXT ~~~~~~~~~~~'
-        calculate_naive_next_percentage
+        puts '~~~~~~~~~~~ CALCULATING PROGRESSION: NAIVE NEXT (MAJOR) ~~~~~~~~~~~'
+        calculate_naive_next("major")
+        puts '~~~~~~~~~~~ CALCULATING PROGRESSION: NAIVE NEXT (MINOR) ~~~~~~~~~~~'
+        calculate_naive_next("minor")
+        puts '~~~~~~~~~~~ CALCULATING PERCENTAGE: NAIVE NEXT (MAJOR) ~~~~~~~~~~~'
+        calculate_naive_next_percentage("major")
+        puts '~~~~~~~~~~~ CALCULATING PERCENTAGE: NAIVE NEXT (MINOR) ~~~~~~~~~~~'
+        calculate_naive_next_percentage("minor")
         puts "total time: #{Time.now - start}"
       end
 
-      def calculate_naive_next
+      def calculate_naive_next(type)
+        isMinor = (type == "minor")
         start = Time.now
         progression = []
         Tonality::ALL.each do |_key, value|
+          next if (isMinor == value[:symbol].end_with?("m"))
           print "#{value[:symbol]}  "
           raw_data = File.open("app/data/analysis/formatted/#{value[:symbol]}.json", 'r').first
           data = JSON.parse(raw_data)
@@ -29,16 +35,16 @@ module DataAnalysis
           end
         end
 
-        File.open('app/data/analysis/numerical_progression/naive_next.json', 'w') do |file|
+        File.open("app/data/analysis/#{type}/naive_next.json", 'w') do |file|
           file.puts progression.to_json
         end
         puts "\ntime: #{Time.now - start}"
       end
 
-      def calculate_naive_next_percentage
+      def calculate_naive_next_percentage(type)
         start = Time.now
 
-        raw_data = File.open('app/data/analysis/numerical_progression/naive_next.json', 'r').first
+        raw_data = File.open("app/data/analysis/#{type}/naive_next.json", 'r').first
         data = JSON.parse(raw_data)
 
         new_data = data.map do |chord1|
@@ -55,7 +61,7 @@ module DataAnalysis
           end
         end
 
-        File.open('app/data/factors/naive_next.json', 'w') do |file|
+        File.open("app/data/factors/#{type}/naive_next.json", 'w') do |file|
           file.puts new_data.to_json
         end
         puts "time: #{Time.now - start}"

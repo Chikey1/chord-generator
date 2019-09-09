@@ -5,21 +5,29 @@ module DataAnalysis
     class << self
       def call
         start = Time.now
-        puts '~~~~~~~~~~~ CALCULATING OVERALL FREQUENCY ~~~~~~~~~~~'
-        calculate_overall_frequency
-        puts '~~~~~~~~~~~ CALCULATING SAME SONG APPEARANCE FREQUENCY ~~~~~~~~~~~'
+        puts '~~~~~~~~~~~ CALCULATING FREQUENCY: OVERALL FREQUENCY (MAJOR) ~~~~~~~~~~~'
+        calculate_overall_frequency("major")
+        puts '~~~~~~~~~~~ CALCULATING FREQUENCY: OVERALL FREQUENCY (MINOR) ~~~~~~~~~~~'
+        calculate_overall_frequency("minor")
+        puts '~~~~~~~~~~~ CALCULATING FREQUENCY: SAME SONG APPEARANCE ~~~~~~~~~~~'
         calculate_same_song_frequency
-        puts '~~~~~~~~~~~ CALCULATING FIRST NOTE FREQUENCY ~~~~~~~~~~~'
-        calculate_first_note_frequency
-        puts '~~~~~~~~~~~ CALCULATING LAST NOTE FREQUENCY ~~~~~~~~~~~'
-        calculate_last_note_frequency
+        puts '~~~~~~~~~~~ CCALCULATING FREQUENCY: FIRST NOTE (MAJOR) ~~~~~~~~~~~'
+        calculate_first_note_frequency("major")
+        puts '~~~~~~~~~~~ CALCULATING FREQUENCY: FIRST NOTE (MINOR) ~~~~~~~~~~~'
+        calculate_first_note_frequency("minor")
+        puts '~~~~~~~~~~~ CALCULATING FREQUENCY: LAST NOTE (MAJOR) ~~~~~~~~~~~'
+        calculate_last_note_frequency("major")
+        puts '~~~~~~~~~~~ CALCULATING FREQUENCY: LAST NOTE (MINOR) ~~~~~~~~~~~'
+        calculate_last_note_frequency("minor")
         puts "TOTAL TIME: #{Time.now - start}"
       end
 
-      def calculate_overall_frequency
+      def calculate_overall_frequency(type)
+        isMinor = (type == "minor")
         start = Time.now
         frequency = []
         Tonality::ALL.each do |_key, value|
+          next if (isMinor == value[:symbol].end_with?("m"))
           print "#{value[:symbol]}  "
           raw_data = File.open("app/data/analysis/formatted/#{value[:symbol]}.json", 'r').first
           data = JSON.parse(raw_data)
@@ -31,7 +39,7 @@ module DataAnalysis
           end
         end
 
-        File.open('app/data/analysis/numerical_frequency/overall.json', 'w') do |file|
+        File.open("app/data/analysis/#{type}/overall.json", 'w') do |file|
           file.puts frequency.to_json
         end
         puts "\ntime: #{Time.now - start}"
@@ -62,10 +70,12 @@ module DataAnalysis
         puts "\ntime: #{Time.now - start}"
       end
 
-      def calculate_first_note_frequency
+      def calculate_first_note_frequency(type)
+        isMinor = (type == "minor")
         start = Time.now
         frequency = []
         Tonality::ALL.each do |_key, value|
+          next if (isMinor == value[:symbol].end_with?("m"))
           print "#{value[:symbol]}  "
           raw_data = File.open("app/data/analysis/formatted/#{value[:symbol]}.json", 'r').first
           data = JSON.parse(raw_data)
@@ -81,17 +91,19 @@ module DataAnalysis
           end
         end
 
-        File.open('app/data/analysis/numerical_frequency/first_note.json', 'w') do |file|
+        File.open("app/data/analysis/#{type}/first_note.json", 'w') do |file|
           file.puts frequency.to_json
         end
 
         puts "\ntime: #{Time.now - start}"
       end
 
-      def calculate_last_note_frequency
+      def calculate_last_note_frequency(type)
+        isMinor = (type == "minor")
         start = Time.now
         frequency = []
         Tonality::ALL.each do |_key, value|
+          next if (isMinor == value[:symbol].end_with?("m"))
           print "#{value[:symbol]}  "
           raw_data = File.open("app/data/analysis/formatted/#{value[:symbol]}.json", 'r').first
           data = JSON.parse(raw_data)
@@ -107,7 +119,7 @@ module DataAnalysis
           end
         end
 
-        File.open('app/data/analysis/numerical_frequency/last_note.json', 'w') do |file|
+        File.open("app/data/analysis/#{type}/last_note.json", 'w') do |file|
           file.puts frequency.to_json
         end
 

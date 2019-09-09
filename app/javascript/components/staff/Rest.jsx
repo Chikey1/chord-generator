@@ -4,7 +4,7 @@ import StaffElement from "components/staff/StaffElement"
 
 function Rest({length}) {
   return (
-    <StaffElement><div className={`rest ${length}`}></div></StaffElement>
+    <div className={`rest ${length}`}></div>
   )
 }
 

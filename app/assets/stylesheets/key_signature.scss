@@ -1,0 +1,159 @@
+.staff {
+  .key-signature {
+    position: absolute;
+    height: 100% !important;
+    content: ' ';
+    left: 45px;
+    width: 60px;
+    top: -41px;
+    justify-content: center;
+    display: flex;
+
+
+    &.selected {
+      &::before {
+        content: " ";
+        position: absolute;
+        width: 100%;
+        background-color: blue;
+        opacity: 0.2;
+        height: 100%;
+        top: 8px;
+        left: 2px;
+      }
+    }
+
+    &.highlight,
+    &.selected {
+      &:hover::before {
+        content: " ";
+        position: absolute;
+        width: 100%;
+        background-color: blue;
+        opacity: 0.2;
+        height: 100%;
+        top: 3px;
+        left: 2px;
+      }
+    }
+
+    .sharp,
+    .flat {
+      position: relative;
+      display: inline-block;
+      height: 100% !important;
+      background-repeat: repeat-y;
+      content: ' ';
+    }
+
+    .sharp {
+      background-size: 12px 100px;
+      background-image: image-url('sharp.svg');
+      width: 10px;
+      bottom: 31px;
+    }
+
+    .flat {
+      background-size: 11px 100px;
+      background-image: image-url('flat.svg');
+      width: 10px;
+      bottom: 31px;
+    }
+
+    .sharp {
+      &.c4 {
+        top: 36px;
+      }
+      &.d4 {
+        top: 32px;
+      }
+      &.e4 {
+        top: 28px;
+      }
+      &.f4 {
+        top: 24px;
+      }
+      &.g4 {
+        top: 20px;
+      }
+      &.a5 {
+        top: 16px;
+      }
+      &.b5 {
+        top: 12px;
+      }
+      &.c5 {
+        top: 8px;
+      }
+      &.d5 {
+        top: 4px;
+      }
+      &.e5 {
+        top: 0px;
+      }
+      &.f5 {
+        top: -4px;
+      }
+      &.g5 {
+        top: -8px;
+      }
+      &.a6 {
+        top: -12px;
+      }
+      &.b6 {
+        top: -16px;
+      }
+      &.c6 {
+        top: -20px;
+      }
+    }
+
+    .flat {
+      &.c4 {
+        top: 28px;
+      }
+      &.d4 {
+        top: 24px;
+      }
+      &.e4 {
+        top: 20px;
+      }
+      &.f4 {
+        top: 16px;
+      }
+      &.g4 {
+        top: 12px;
+      }
+      &.a5 {
+        top: 8px;
+      }
+      &.b5 {
+        top: 4px;
+      }
+      &.c5 {
+        top: 0px;
+      }
+      &.d5 {
+        top: -4px;
+      }
+      &.e5 {
+        top: -8px;
+      }
+      &.f5 {
+        top: -12px;
+      }
+      &.g5 {
+        top: -16px;
+      }
+      &.a6 {
+        top: -20px;
+      }
+      &.b6 {
+        top: -24px;
+      }
+      &.c6 {
+        top: -28px;
+      }
+    }
+  }
+}

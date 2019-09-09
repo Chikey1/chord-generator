@@ -1,11 +1,20 @@
-
+.edit-key-signature {
+  .staff {
+    height: 90px;
+  }
+}
 .edit-element {
+  .staff {
+    padding-left: 40px;
+  }
+
   .type-option {
     height: 50px;
     width: 50px;
     display: flex;
     position: relative;
     justify-content: center;
+    align-items: center;
 
     &:hover::before {
       content: " ";
@@ -34,70 +43,15 @@
       }
     }
 
-    .accidental {
-      position: relative;
-      width: 20px;
-      height: 22px;
-      font-size: 20px;
-
-
-      &.sharp::after {
-        position: relative;
-        content: "\266F";
-        width: 20px;
-        height: 22px;
-        top: 1px;
-      }
-
-      &.flat::after {
-        position: relative;
-        content: "\266D";
-        width: 20px;
-        height: 22px;
-        font-size: 24px;
-        bottom: 2px;
-      }
-
-      &.natural::after {
-        position: relative;
-        content: "\266E";
-        width: 20px;
-        height: 22px;
-        top: 1px;
-      }
+    .rest.whole {
+      top: 3px;
     }
 
     .note {
-      &.whole {
-        top: 12px;
-      }
-
-      &.half,
-      &.quarter,
-      &.eighth {
-        top: 22px;
-      }
-
-      &.eighth {
-        right: 2px;
-      }
-    }
-
-    .rest {
-      &.whole {
-        top: 14px;
-      }
-
-      &.half {
-        top: 10px;
-      }
-
-      &.quarter {
-        top: 4px;
-      }
-
-      &.eighth {
-        top: 8px;
+      .half,
+      .quarter,
+      .eighth {
+        bottom: 0px;
       }
     }
   }

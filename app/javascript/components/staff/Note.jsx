@@ -2,12 +2,11 @@ import React from "react"
 import PropTypes from "prop-types"
 
 function Note({ stemDirection, length, lineNote, accidental }) {
+  const noteStyle = length + " " + stemDirection + (lineNote ? " line-note" : "")
   return(
-    <div className={`note ${length} stem-${stemDirection}`}>
+    <div className="note">
       { accidental && <div className={`accidental ${accidental}`}></div> }
-      { lineNote && <div className="line-note"></div> }
-      <div className="head"></div>
-      <div className="flag"></div>
+      <div className={noteStyle}></div>
     </div>
   )
 }

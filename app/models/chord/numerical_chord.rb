@@ -84,5 +84,14 @@ module Chord
         Chord::Modification.find_by_id(mod_id)
       end
     end
+
+    def composition
+      composition = chord_base.composition
+      modifications.each do |mod|
+        composition -= mod.remove
+        composition += mod.add
+      end
+      composition
+    end
   end
 end

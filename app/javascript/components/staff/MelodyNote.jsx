@@ -1,23 +1,23 @@
 import React from "react"
 import PropTypes from "prop-types"
 import Note from "components/staff/Note"
-import { getStemDirection, isLineNote } from "components/helpers/MelodyNoteHelpers"
+import { getStemDirection, isLineNote, getRelativeTop } from "helpers/MelodyNoteHelpers"
 import StaffElement from "components/staff/StaffElement"
 
-function MelodyNote({ length, value, accidental}) {
+function MelodyNote({ length, value, accidental, clef}) {
   const stemDirection = getStemDirection(value)
   const lineNote = isLineNote(value)
+  const top = getRelativeTop(value, clef)
+
   return (
-    <StaffElement>
-      <div className={`melody-note ${value}`}>
-        <Note
-          stemDirection={stemDirection}
-          length={length}
-          lineNote={lineNote}
-          accidental={accidental}
-        />
-      </div>
-    </StaffElement>
+    <div className={"melody-note"} style={{top: top + "px"}}>
+      <Note
+        stemDirection={stemDirection}
+        length={length}
+        lineNote={lineNote}
+        accidental={accidental}
+      />
+    </div>
   );
 }
 

@@ -4,11 +4,12 @@ import Staff from "components/staff/Staff"
 import StaffElement from "components/staff/StaffElement"
 import Bar from "components/staff/Bar"
 import MelodyNote from "components/staff/MelodyNote"
+import KeySignature from "components/staff/KeySignature"
 import Rest from "components/staff/Rest"
 import EditElement from "components/EditElement"
 import Button from "components/Button"
 import Clef from "components/staff/Clef"
-import { getBeats, beatsInMeasure, greatestAvailableLength } from "components/helpers/LengthHelpers"
+import { getBeats, beatsInMeasure, greatestAvailableLength } from "helpers/LengthHelpers"
 
 class EditMeasure extends React.Component {
   state = {
@@ -76,7 +77,7 @@ class EditMeasure extends React.Component {
 
   render () {
     const { measure, selectedElementId } = this.state
-    const { id, onSave } = this.props
+    const { id, onSave, keySignature } = this.props
     return (
       <div className='p-5 d-flex flex-column align-items-center'>
         <div className="text-center">Edit measure {id + 1}: </div>
@@ -84,27 +85,31 @@ class EditMeasure extends React.Component {
           <div className="edit-element-staff">
             <Staff>
               <Clef type="treble" />
+              <KeySignature name={keySignature} />
               <StaffElement>
-                {measure.map((entity, index) => {
-                  return(
-                    <StaffElement
-                      key={index}
-                      highlightOnHover={true}
-                      selected={selectedElementId == index}
-                      onClick={() => this.handleElementClick(index)}
-                    >
-                      {entity.type == "rest" && <Rest length={entity.length} key={index}/>}
-                      {entity.type == "note" &&
-                        <MelodyNote
-                          length={entity.length}
-                          accidental={entity.accidental}
-                          key={index}
-                          value={entity.value}
-                        />
-                        }
-                    </StaffElement>
-                  )
-                })}
+                <div className="measure">
+                  {measure.map((entity, index) => {
+                    return(
+                      <StaffElement
+                        key={index}
+                        highlightOnHover={true}
+                        selected={selectedElementId == index}
+                        onClick={() => this.handleElementClick(index)}
+                      >
+                        {entity.type == "rest" && <Rest length={entity.length} key={index}/>}
+                        {entity.type == "note" &&
+                          <MelodyNote
+                            length={entity.length}
+                            accidental={entity.accidental}
+                            key={index}
+                            value={entity.value}
+                            clef="treble"
+                          />
+                          }
+                      </StaffElement>
+                    )
+                  })}
+                </div>
               </StaffElement>
               <Bar type="end" />
             </Staff>
@@ -113,6 +118,7 @@ class EditMeasure extends React.Component {
         <EditElement
           element={measure[selectedElementId]}
           onChange={this.handleElementChange}
+          keySignature={keySignature}
         />
         <Button type='dark' onClick={() => {onSave(measure)}}>Update!</Button>
       </div>

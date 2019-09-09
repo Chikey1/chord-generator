@@ -1,230 +1,113 @@
 .note {
-  position: relative;
-  width: 12px;
-  height: 32px;
+  align-items: center;
+  display: flex;
 
-  .line-note {
+  .accidental.flat {
     position: relative;
-    height: 1px;
-    width: 20px;
-    top: 4px;
-    right: 4px;
+    top: -3px;
+  }
 
-    &::before {
-      height: 1px;
-      width: 20px;
-      box-sizing: border-box;
-      border-top: 1px solid #222222;
+  .whole,
+  .half,
+  .quarter,
+  .eighth {
+    content: " ";
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: relative;
+
+    &.line-note::after {
       position: absolute;
-      content: "";
+      content: " ";
+      border-bottom: 1px solid black;
+      width: 19px;
     }
   }
 
-  .accidental {
-    right: 7px;
-    position: absolute;
-    bottom: 20px;
-    width: 20px;
-    height: 22px;
-    font-size: 20px;
+  .whole {
+    background-image: image-url('notes/whole_note.svg');
+    width: 14px;
+    height: 10px;
 
-
-    &.sharp::after {
-      position: absolute;
-      content: "\266F";
+    &.line-note::after {
+      left: -3px;
+      top: 4px;
       width: 20px;
-      height: 22px;
-    }
-
-    &.flat::after {
-      position: relative;
-      content: "\266D";
-      width: 20px;
-      height: 22px;
-      font-size: 24px;
-      bottom: 8px;
-    }
-
-    &.natural::after {
-      position: absolute;
-      content: "\266E";
-      width: 20px;
-      height: 22px;
     }
   }
 
-  .head {
-    position: relative;
+  .half {
+    width: 11px;
+    height: 33px;
+
+    &.up {
+      background-image: image-url('notes/half_note_up.svg');
+      bottom: 11px;
+
+      &.line-note::after {
+        left: -4px;
+        top: 27px;
+      }
+    }
+
+    &.down {
+      background-image: image-url('notes/half_note_down.svg');
+      top: 12px;
+
+      &.line-note::after {
+        left: -4px;
+        top: 4px;
+      }
+    }
+  }
+
+  .quarter {
+    width: 11px;
     height: 32px;
-    content: "";
 
-    &::before {
-      height: 8px;
-      width: 12px;
-      position: absolute;
-      content: "";
-      border-radius: 50%;
-    }
-  }
+    &.up {
+      background-image: image-url('notes/quarter_note_up.svg');
+      bottom: 11px;
 
-  &.half,
-  &.quarter,
-  &.eighth {
-    .head::after {
-      content: "";
-      height: 28px;
-      width: 1px;
-      background-color: black;
-      position: absolute;
-      right: 0;
-    }
-
-    &.stem-up {
-      .head {
-        width: 12px;
-        &::after {
-          top: -24px;
-        }
-      }
-
-      .flag {
-        position: absolute;
-        bottom: 56px;
-        left: 11px;
-
-        &::before {
-          transform: rotatez(15deg);
-        }
+      &.line-note::after {
+        left: -4px;
+        top: 27px;
       }
     }
 
-    &.stem-down {
-      .head {
-        width: 1px;
-        &::after {
-          top: 4px;
-        }
-      }
-      .flag {
-        position: absolute;
-        bottom: 5px;
-        left: 1px;
+    &.down {
+      background-image: image-url('notes/quarter_note_down.svg');
+      top: 12px;
 
-        &::before {
-          transform: rotatez(-16deg);
-        }
+      &.line-note::after {
+        left: -4px;
+        top: 4px;
       }
     }
   }
 
-  &.whole {
-    .head::before {
-      box-sizing: border-box;
-      border: 1px solid black;
-      transform: rotatez(-5deg);
-      border-left-width: 3px;
-      border-right-width: 3px;
-    }
-  }
+  .eighth {
+    height: 33px;
 
-  &.half {
-    .head::before {
-      transform: rotatez(-15deg);
-      box-sizing: border-box;
-      border: 1px solid black;
-      border-top-width: 2.18181818px;
-      border-bottom-width: 2.18181818px;
-    }
-  }
+    &.up {
+      background-image: image-url('notes/eighth_note_up.svg');
+      width: 18px;
+      bottom: 12px;
 
-  &.quarter,
-  &.eighth {
-    .head::before {
-      transform: rotatez(-15deg);
-      background-color: black;
-    }
-  }
-
-  &.eighth {
-    .flag {
-      &::before {
-        content: "";
-        position: absolute;
-        height: 8px;
-        width: 10px;
-        box-sizing: border-box;
-        border-top: 5px solid black;
-      }
-    }
-  }
-}
-
-
-.ghost-note {
-  position: relative;
-  height: 7px;
-  content: "";
-  width: 12px;
-
-  .line-note {
-    position: relative;
-    height: 1px;
-    width: 20px;
-    top: 4px;
-    right: 4px;
-
-    &::before {
-      height: 1px;
-      width: 20px;
-      box-sizing: border-box;
-      border-top: 1px solid transparent;
-      position: absolute;
-      content: "";
-    }
-  }
-
-  .head {
-    position: relative;
-    height: 7px;
-    content: "";
-
-    &::before {
-      height: 8px;
-      width: 12px;
-      position: absolute;
-      content: "";
-      border-radius: 50%;
-      transform: rotatez(-15deg);
-      background-color: transparent;
-    }
-  }
-
-  &.selected {
-    .line-note {
-      &::before {
-        border-color: #222222;
+      &.line-note::after {
+        left: -4px;
+        top: 28px;
       }
     }
 
-    .head {
-      &::before {
-        background-color:#222222;
-      }
-    }
-  }
+    &.down {
+      background-image: image-url('notes/eighth_note_down.svg');
+      width: 11px;
+      top: 12px;
 
-  &:hover {
-    .line-note {
-      &::before {
-        border-color: blue;
-        opacity: 0.5;
-      }
-    }
-
-    .head {
-      &::before {
-        background-color: blue;
-        opacity: 0.5;
+      &.line-note::after {
+        left: -4px;
+        top: 4px;
       }
     }
   }

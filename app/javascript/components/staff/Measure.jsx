@@ -4,14 +4,22 @@ import MelodyNote from "components/staff/MelodyNote"
 import Rest from "components/staff/Rest"
 import StaffElement from "components/staff/StaffElement"
 
-function Measure ({data}) {
+function Measure ({data, clef}) {
   return (
     <div className="measure">
       {data.map((entity, index) => {
         return(
           <StaffElement key={index}>
             {entity.type == "rest" && <Rest length={entity.length} key={index}/>}
-            {entity.type == "note" && <MelodyNote value={entity.value} length={entity.length} accidental={entity.accidental} key={index}/>}
+            {entity.type == "note" &&
+              <MelodyNote
+                value={entity.value}
+                length={entity.length}
+                accidental={entity.accidental}
+                key={index}
+                clef={clef}
+              />
+            }
           </StaffElement>
         )
       })}

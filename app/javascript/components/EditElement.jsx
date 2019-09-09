@@ -5,8 +5,9 @@ import Note from "components/staff/Note"
 import Clef from "components/staff/Clef"
 import Rest from "components/staff/Rest"
 import GhostNotes from "components/staff/GhostNotes"
+import KeySignature from "components/staff/KeySignature"
 
-function EditElement({element, onChange}) {
+function EditElement({element, onChange, keySignature}) {
   const handleTypeSelect = (type, length) => {
     if(isSelected(type, length)) {
       return null;
@@ -99,7 +100,6 @@ function EditElement({element, onChange}) {
         <div className="d-flex flex-wrap">
           <div className="value-select m-2" style={{width: "100px"}}>
             <Staff>
-              <Clef />
               <GhostNotes value={element.value} onClick={handleValueSelect}/>
             </Staff>
           </div>

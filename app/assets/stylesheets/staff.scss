@@ -5,6 +5,51 @@
   background-image: linear-gradient(180deg, #999 0, #999 1px, transparent 1px, transparent 8px, #999 8px, #999 9px, transparent 9px, transparent 16px, #999 16px, #999 17px, transparent 17px, transparent 24px, #999 24px, #999 25px, transparent 25px, transparent 32px, #999 32px, #999 33px, transparent 33px);
   background-size: 100% 100px;
   margin-bottom: -67px;
+  padding-left: 100px;
+  position: relative;
+
+  .clef {
+    position: absolute;
+    left: 3px;
+    background-repeat: repeat-y;
+    background-size: 50px 100px;
+    height: 100% !important;
+    content: ' ';
+
+    &.selected {
+      &::before {
+        content: " ";
+        position: absolute;
+        width: 100%;
+        background-color: blue;
+        opacity: 0.2;
+        height: 100%;
+        top: 3px;
+        left: 2px;
+      }
+    }
+
+    &.highlight,
+    &.selected {
+      &:hover::before {
+        content: " ";
+        position: absolute;
+        width: 100%;
+        background-color: blue;
+        opacity: 0.2;
+        height: 100%;
+        top: 3px;
+        left: 2px;
+      }
+    }
+
+    &.treble {
+      bottom: 31px;
+      background-image: image-url('treble_clef.svg');
+      height: 54px;
+      width: 48px;
+    }
+  }
 
   .staff-element {
     display: inline-block;
@@ -31,19 +76,7 @@
 
     .measure {
       height: 33px;
-
-      .measure-element {
-        display: inline-block;
-        height: 33px;
-      }
-    }
-
-    .clef {
-      position: relative;
-
-      &.treble {
-        bottom: 4px;
-      }
+      min-width: 100px;
     }
 
     .rest {
@@ -65,8 +98,12 @@
 
     .melody-note {
       position: relative;
-      margin-left: 20px;
-      margin-right: 15px;
+      margin-left: 33px;
+      margin: 0 22px;
+
+      .note {
+        position: absolute;
+      }
     }
 
     .ghost-notes {
@@ -77,10 +114,7 @@
       }
     }
 
-
-    .melody-note,
     .ghost-note {
-
       &.c4 {
         top: 36px;
       }
@@ -152,6 +186,7 @@
     width: 1px;
     height: 32px;
     border-right: 1px solid black;
+    margin-left: 10px;
 
     &.double,
     &.end  {

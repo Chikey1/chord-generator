@@ -1,8 +1,8 @@
 import React from "react"
 import Note from "components/staff/Note"
-import { isLineNote } from "components/helpers/MelodyNoteHelpers"
+import { isLineNote } from "helpers/MelodyNoteHelpers"
 import StaffElement from "components/staff/StaffElement"
-import { AVAILABLE_RANGE } from "components/constants/Notes"
+import { AVAILABLE_RANGE } from "constants/Notes"
 
 function GhostNotes({value, onClick}) {
   return (
