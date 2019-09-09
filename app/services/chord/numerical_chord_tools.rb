@@ -4,6 +4,7 @@ module Chord
   class NumericalChordTools
     class << self
       include DataConversion::Enharmonics
+
       private
 
       def get_base_and_quality(chord_name)

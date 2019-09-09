@@ -93,12 +93,8 @@ module Chord
       end
       composition.map do |note|
         comp = note + base - 1
-        while comp > 11
-          comp -= 12
-        end
-        while comp < 0
-          comp += 12
-        end
+        comp -= 12 while comp > 11
+        comp += 12 while comp < 0
         comp
       end
     end

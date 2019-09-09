@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ChordGenerator
   class CleanData
     class << self
@@ -9,19 +11,20 @@ module ChordGenerator
         measures.map do |measure|
           accidentals = key_signature_accidentals
           measure.map do |element|
-            value = clean_value(element["value"])
+            value = clean_value(element['value'])
 
-            accidentals.push([value, element["accidental"]]) if element["accidental"].present?
+            accidentals.push([value, element['accidental']]) if element['accidental'].present?
 
             {
-              length: convert_length(element["length"]),
+              length: convert_length(element['length']),
               symbol: get_symbol(value, accidentals),
             }
           end
         end.flatten
       end
 
-    private
+      private
+
       def convert_length(length)
         Rational(1, TO_NUMBER[length])
       end
@@ -35,23 +38,26 @@ module ChordGenerator
         end
 
         return symbol if TO_BACKEND[symbol].nil?
+
         TO_BACKEND[symbol]
       end
 
       def clean_value(value)
         return nil if value.nil? # rest
         symbol = value.chop.upcase
+        symbol
       end
 
       def with_accidental(symbol, accidental)
         case accidental
-        when "sharp", "#"
-          symbol = symbol + "#"
-        when "flat", "b"
-          symbol = symbol + "b"
+        when 'sharp', '#'
+          symbol += '#'
+        when 'flat', 'b'
+          symbol += 'b'
         else
           symbol
         end
+        symbol
       end
 
       def get_key_signature(key_signature)

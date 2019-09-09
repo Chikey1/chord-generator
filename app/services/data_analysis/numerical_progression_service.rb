@@ -6,22 +6,23 @@ module DataAnalysis
       def call
         start = Time.now
         puts '~~~~~~~~~~~ CALCULATING PROGRESSION: NAIVE NEXT (MAJOR) ~~~~~~~~~~~'
-        calculate_naive_next("major")
+        calculate_naive_next('major')
         puts '~~~~~~~~~~~ CALCULATING PROGRESSION: NAIVE NEXT (MINOR) ~~~~~~~~~~~'
-        calculate_naive_next("minor")
+        calculate_naive_next('minor')
         puts '~~~~~~~~~~~ CALCULATING PERCENTAGE: NAIVE NEXT (MAJOR) ~~~~~~~~~~~'
-        calculate_naive_next_percentage("major")
+        calculate_naive_next_percentage('major')
         puts '~~~~~~~~~~~ CALCULATING PERCENTAGE: NAIVE NEXT (MINOR) ~~~~~~~~~~~'
-        calculate_naive_next_percentage("minor")
+        calculate_naive_next_percentage('minor')
         puts "total time: #{Time.now - start}"
       end
 
       def calculate_naive_next(type)
-        isMinor = (type == "minor")
+        is_minor = (type == 'minor')
         start = Time.now
         progression = []
         Tonality::ALL.each do |_key, value|
-          next if (isMinor != value[:symbol].end_with?("m"))
+          next if is_minor != value[:symbol].end_with?('m')
+
           print "#{value[:symbol]}  "
           raw_data = File.open("app/data/analysis/formatted/#{value[:symbol]}.json", 'r').first
           data = JSON.parse(raw_data)
