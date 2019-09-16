@@ -76,7 +76,7 @@ module Chord
 
         return false
       end
-      try.present?
+      try.blank?
     end
 
     def modifications
