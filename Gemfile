@@ -67,3 +67,4 @@ gem "nmatrix"
 
 gem 'webpacker'
 gem 'react-rails'
+gem 'seed_dump'

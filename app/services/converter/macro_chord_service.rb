@@ -10,13 +10,12 @@ module Converter
         chord = Chord::NumericalChord.find_by_id(chord_id)
         quality = chord.quality
         base = NoteService.get_note_from_distance(tonic, chord.base - 1).symbol
-        if tonality[:flats] > 0
-          base = to_flat(base)
-        end
+        base = to_flat(base) if tonality[:flats] > 0
         base + quality
       end
 
-    private
+      private
+
       def to_flat(symbol)
         TO_FLAT[symbol] || symbol
       end

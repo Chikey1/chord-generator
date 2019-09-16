@@ -5,7 +5,7 @@ module DataAnalysis
     class << self
       def call
         start_time = Time.now
-        
+
         Tonality::ALL.each do |key, value|
           formatted_data = []
           count = 0
