@@ -2,23 +2,6 @@
 see the demo here!
 https://chord-generator.herokuapp.com/
 
-## If you lose your db or want to update your data
-1. `DataAnalysis::DataFormatterService.call`
-    - this will create the chords you need in the backend to index
-    - this will also update the formatted data
-2. `DataAnalysis::NumericalFrequencyService.call`
-    - this will create frequency data from the formatted data
-3. `DataAnalysis::NumericalFrequencyPercentageService.call`
-    - this will create some factors you need for recommendation from the frequency data
-4. `DataAnalysis::NumericalProgressionService.call`
-    - this will create some factors you need for recommendation from the formatted data
-5. `DataAnalysis::PerSongFrequencyService.call`
-    - this will create some factors you need for recommendation from the formatted data
-6. `Matrices::GenerateService.call`
-    - this will create the matrices needed to generate chords
-
-**RUN `rake db:seed:dump FILE=db/seeds/chords.rb` IF NEW CHORDS ARE ADDED!
-
 <!-- ## Pre-Commit
 
 1. `rubocop`
@@ -30,6 +13,7 @@ https://chord-generator.herokuapp.com/
 2. [Data](#data)
    1. [raw](#raw)
    2. [analysis](#analysis)
+   3. [data recovery](#data-recovery)
 3. [Services](#services)
    1. [converter](#converter)
    2. [data analysis](#data-analysis)
@@ -90,6 +74,25 @@ is split into the following, all stored as:
   - first note
   - last note
   - next chord frequency (chord relationships)
+
+### DATA RECOVERY
+If you lose your db or want to update your data
+1. `DataAnalysis::DataFormatterService.call`
+    - this will create the chords you need in the backend to index
+    - this will also update the formatted data
+2. `DataAnalysis::NumericalFrequencyService.call`
+    - this will create frequency data from the formatted data
+3. `DataAnalysis::NumericalFrequencyPercentageService.call`
+    - this will create some factors you need for recommendation from the frequency data
+4. `DataAnalysis::NumericalProgressionService.call`
+    - this will create some factors you need for recommendation from the formatted data
+5. `DataAnalysis::PerSongFrequencyService.call`
+    - this will create some factors you need for recommendation from the formatted data
+6. `Matrices::GenerateService.call`
+    - this will create the matrices needed to generate chords
+
+**RUN `rake db:seed:dump FILE=db/seeds/chords.rb` IF NEW CHORDS ARE ADDED!
+
 
 ## Services (may be outdated)
 ### CONVERTER::
