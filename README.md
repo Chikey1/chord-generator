@@ -65,6 +65,7 @@ the line is formatted as:
 
 ### DATA ANALYSIS
 NOTE: BEFORE RECALCULATING, RUN `DataAnalysis::CheckChordsService.call` TO CHECK FOR ERRORS
+
 is split into the following, all stored as:
 - **formatted** (json 2D array)
   - raw data formatted into `[song][order] = chord_id`
