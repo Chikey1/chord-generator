@@ -29,6 +29,7 @@ class Base extends React.Component {
         },
       ],
     ],
+    generating: false,
     deleting: false,
     editing: false,
     selectedMeasure: null,
@@ -139,12 +140,15 @@ class Base extends React.Component {
       chord_interval: this.state.chordInterval,
     }
 
+    this.setState({generating: true})
+
     post('/generate-chords', data).then((response) => {
       if (response.status !== 200) {
         console.log('Looks like there was a problem. Status Code: ' +
           response.status);
         this.setState({
-          error: 'Error, Status Code: ' + response.status + " :("
+          error: 'Error, Status Code: ' + response.status + " :(",
+          generating: false,
         })
         return;
       }
@@ -153,12 +157,14 @@ class Base extends React.Component {
         console.log(data);
         if(data["error"]) {
           this.setState({
-            error: data["error"]
+            error: data["error"],
+            generating: false,
           })
         } else if (data["chords"]) {
           this.setState({
             chords: data["chords"],
             error: null,
+            generating: false,
           })
         }
       });
@@ -166,7 +172,8 @@ class Base extends React.Component {
     }).catch((err) => {
       console.log('Fetch Error :-S', err);
       this.setState({
-        error: 'Fetch Error :-S'
+        error: 'Fetch Error :-S',
+        generating: false,
       })
     })
   }
@@ -195,8 +202,9 @@ class Base extends React.Component {
   }
 
   render () {
-    const { timeSignature, clef, measures, deleting, editing, selectedMeasure, keySignature, chords, error } = this.state
+    const { timeSignature, clef, measures, deleting, editing, selectedMeasure, keySignature, chords, error, generating } = this.state
     const selectedMeasureId = selectedMeasure ? selectedMeasure.id : null
+    const generalDisable = deleting || editing || generating
     return (
       <div className='p-5'>
         <h2 className="text-center">Chord Generator</h2>
@@ -224,37 +232,39 @@ class Base extends React.Component {
         {this.renderDeleteConfirmation()}
         {this.renderEdit()}
         <div className="d-flex justify-content-center py-2 mt-5" style={{zIndex: 1}}>
-          <Button onClick={this.handleEditButtonClick} type='dark' disabled={deleting}>
+          <Button onClick={this.handleEditButtonClick} type='dark' disabled={deleting || generating}>
             { editing ? "Stop Editing" : "Edit Score" }
           </Button>
-          <Button onClick={this.handleAddMeasure} type='dark' disabled={deleting || editing}>
+          <Button onClick={this.handleAddMeasure} type='dark' disabled={generalDisable}>
             Add Measure
           </Button>
-          <Button onClick={this.handleDeleteButtonClick} type='danger' disabled={editing}>
+          <Button onClick={this.handleDeleteButtonClick} type='danger' disabled={editing || generating}>
             { deleting ? "Stop Deleting" : "Delete Measure" }
           </Button>
         </div>
         <div className="d-flex justify-content-center py-2">
-          <Button onClick={this.generateChords} type='success' disabled={deleting || editing}>Generate Chords!</Button>
+          <Button onClick={this.generateChords} type='success' disabled={generalDisable}>
+            {generating ? "Generating..." : "Generate Chords!"}
+          </Button>
         </div>
         <p className="text-center mt-5 mb-0">Demo Data</p>
         <div className="d-flex justify-content-center py-1">
-          <Button onClick={() => this.populateDemo(ODE_TO_JOY())} type='link' disabled={deleting || editing}>
+          <Button onClick={() => this.populateDemo(ODE_TO_JOY())} type='link' disabled={generalDisable}>
             Ode to Joy
           </Button>
-          <Button onClick={() => this.populateDemo(C_SHARP_MINOR_MELODIC())} type='link' disabled={deleting || editing}>
+          <Button onClick={() => this.populateDemo(C_SHARP_MINOR_MELODIC())} type='link' disabled={generalDisable}>
             C# Minor Melodic
           </Button>
-          <Button onClick={() => this.populateDemo(TWELVE_BAR_BLUES())} type='link' disabled={deleting || editing}>
+          <Button onClick={() => this.populateDemo(TWELVE_BAR_BLUES())} type='link' disabled={generalDisable}>
             Twelve Bar Blues
           </Button>
-          <Button onClick={() => this.populateDemo(TWINKLE_TWINKLE())} type='link' disabled={deleting || editing}>
+          <Button onClick={() => this.populateDemo(TWINKLE_TWINKLE())} type='link' disabled={generalDisable}>
             Twinkle Twinkle
           </Button>
-          <Button onClick={() => this.populateDemo(HAPPY_BIRTHDAY())} type='link' disabled={deleting || editing}>
+          <Button onClick={() => this.populateDemo(HAPPY_BIRTHDAY())} type='link' disabled={generalDisable}>
             Happy Birthday
           </Button>
-          <Button onClick={() => this.populateDemo(HAPPY_BIRTHDAY_MINOR())} type='link' disabled={deleting || editing}>
+          <Button onClick={() => this.populateDemo(HAPPY_BIRTHDAY_MINOR())} type='link' disabled={generalDisable}>
             Happy Birthday (minor)
           </Button>
         </div>
