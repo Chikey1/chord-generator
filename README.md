@@ -34,6 +34,9 @@ https://chord-generator.herokuapp.com/
    1. [converter](#converter)
    2. [data analysis](#data-analysis)
    3. [other](#other)
+4. [Models](#models)
+5. [Looking Ahead](#looking-ahead)
+
 
 
 
@@ -141,3 +144,15 @@ is split into the following, all stored as:
   - ActiveHash
 - **NumericalChord**
   - ActiveRecord
+
+## LOOKING AHEAD
+### Front-End:
+- add multiple clefs (backend already supports this)
+- add multiple time signatures (backend already supports this)
+- add more musical notation (backend already supports this)
+- rethink UX design of editing score (maybe drag and drop?)
+
+### Back-End:
+- currently only have chord progression data, try to get chords + melody data
+- play around with some ML potentially?
+- more fun to be had back here
