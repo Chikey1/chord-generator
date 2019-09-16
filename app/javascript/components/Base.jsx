@@ -2,7 +2,15 @@ import React from "react"
 import Score from "components/Score"
 import Button from "components/Button"
 import EditMeasure from "components/EditMeasure"
-import { ODE_TO_JOY, C_SHARP_MINOR_MELODIC } from "constants/DummyScores"
+import {
+  ODE_TO_JOY,
+  C_SHARP_MINOR_MELODIC,
+  TWELVE_BAR_BLUES,
+  TWINKLE_TWINKLE,
+  TWINKLE_TWINKLE_MINOR,
+  HAPPY_BIRTHDAY,
+  HAPPY_BIRTHDAY_MINOR,
+} from "constants/DummyScores"
 import EditKeySignature from "components/EditKeySignature"
 import { post } from "utility/api"
 
@@ -100,13 +108,13 @@ class Base extends React.Component {
     return null
   }
 
-  populateDemo = () => {
-    const demo = ODE_TO_JOY()
+  populateDemo = (demo) => {
     this.setState({
       measures: demo.measures,
       keySignature: demo.keySignature,
       clef: demo.clef,
       timeSignature: demo.timeSignature,
+      chords: [],
     })
   }
 
@@ -149,7 +157,8 @@ class Base extends React.Component {
           })
         } else if (data["chords"]) {
           this.setState({
-            chords: data["chords"]
+            chords: data["chords"],
+            error: null,
           })
         }
       });
@@ -186,11 +195,18 @@ class Base extends React.Component {
   }
 
   render () {
-    const { timeSignature, clef, measures, deleting, editing, selectedMeasure, keySignature, chords } = this.state
+    const { timeSignature, clef, measures, deleting, editing, selectedMeasure, keySignature, chords, error } = this.state
     const selectedMeasureId = selectedMeasure ? selectedMeasure.id : null
     return (
       <div className='p-5'>
         <h2 className="text-center">Chord Generator</h2>
+        { error &&
+          <div className="d-flex justify-content-center">
+            <div className="alert alert-danger" style={{maxWidth: "800px", minWidth: "400px"}} role="alert">
+              {error}
+            </div>
+          </div>
+        }
         <div className="pt-5 pb-3">
           <Score
             clef={clef}
@@ -219,10 +235,28 @@ class Base extends React.Component {
           </Button>
         </div>
         <div className="d-flex justify-content-center py-2">
-          <Button onClick={this.populateDemo} type='dark' disabled={deleting || editing}>
-            Demo Data
-          </Button>
           <Button onClick={this.generateChords} type='success' disabled={deleting || editing}>Generate Chords!</Button>
+        </div>
+        <p className="text-center mt-5 mb-0">Demo Data</p>
+        <div className="d-flex justify-content-center py-1">
+          <Button onClick={() => this.populateDemo(ODE_TO_JOY())} type='link' disabled={deleting || editing}>
+            Ode to Joy
+          </Button>
+          <Button onClick={() => this.populateDemo(C_SHARP_MINOR_MELODIC())} type='link' disabled={deleting || editing}>
+            C# Minor Melodic
+          </Button>
+          <Button onClick={() => this.populateDemo(TWELVE_BAR_BLUES())} type='link' disabled={deleting || editing}>
+            Twelve Bar Blues
+          </Button>
+          <Button onClick={() => this.populateDemo(TWINKLE_TWINKLE())} type='link' disabled={deleting || editing}>
+            Twinkle Twinkle
+          </Button>
+          <Button onClick={() => this.populateDemo(HAPPY_BIRTHDAY())} type='link' disabled={deleting || editing}>
+            Happy Birthday
+          </Button>
+          <Button onClick={() => this.populateDemo(HAPPY_BIRTHDAY_MINOR())} type='link' disabled={deleting || editing}>
+            Happy Birthday (minor)
+          </Button>
         </div>
       </div>
     );

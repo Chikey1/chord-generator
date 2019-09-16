@@ -4,27 +4,40 @@ module ChordGenerator
   class CalculateChordsService
     class << self
       def call(chord_intervals, tonality_type)
+        start = Time.now
         chord_intervals = chord_interval_matrix(chord_intervals)
+        puts "chord_interval: #{Time.now - start}"
+        harmony_matrix = (chord_intervals * composition_matrix.t).to_a # chord_interval x chord_ids, percentages
+        puts "harmony: #{Time.now - start}"
+      
+        factors_matrix = overall_matrix(chord_intervals.row_count, tonality_type, 0.2)
+        puts "overall: #{Time.now - start}"
+        factors_matrix = with_first_note(factors_matrix, tonality_type, 0.2)
+        puts "first note: #{Time.now - start}"
+        factors_matrix = with_last_note(factors_matrix, tonality_type, 0.2)
+        puts "last note: #{Time.now - start}"
+      
 
-        harmony_matrix = chord_intervals * composition_matrix.t # chord_interval x chord_ids
-
-        modified_array = with_overall(harmony_matrix, tonality_type, 0.5)
-
-        modified_array = with_first_note(modified_array, tonality_type, 1)
-
-        modified_array = with_last_note(modified_array, tonality_type, 1)
-
-        modified_3d = with_naive_next(modified_array, tonality_type, 1, 0.4)
-
-        modified_3d = with_grouping(modified_3d, 1)
-
-        chord_ids = Array.new(modified_array.length)
-        chord_ids = get_chord_ids(chord_ids, modified_3d)
+        factors_matrix = make_3d(factors_matrix, 0.5) # 3D
+        puts "make 3d: #{Time.now - start}"
+      
+        factors_matrix = with_grouping(factors_matrix, tonality_type, 0.2)
+        puts "grouping: #{Time.now - start}"
+      
+        factors_matrix = with_naive_next(factors_matrix, tonality_type, 0.2, 5)
+        puts "naive next: #{Time.now - start}"
+      
+        combined_matrix = combine(harmony_matrix, factors_matrix)
+        puts "combine: #{Time.now - start}"
+      
+        chord_ids = Array.new(chord_intervals.row_count)
+        chord_ids = get_chord_ids(chord_ids, combined_matrix)
+        puts "chord ids: #{Time.now - start}"
         # handicap_weight = 0
         # last_length = chord_ids.uniq.length
-        # while last_length < 3 && handicap_weight < 200
-        #   handicapped_array = handicap(modified_3d.dup, chord_ids, handicap_weight)
-        #   chord_ids = get_chord_ids(chord_ids, handicapped_array)
+        # while last_length < 3 && handicap_weight < 50
+        #   handicapped_array = handicap(combined_matrix.dup, chord_ids, handicap_weight)
+        #   chord_ids = get_chord_ids(chord_ids, combined_matrix)
         #   last_length = chord_ids.uniq.length
         #   handicap_weight += 10
         # end
@@ -32,6 +45,30 @@ module ChordGenerator
       end
 
       private
+      def make_3d(matrix, weighting)
+        matrix.map.with_index do |chord_interval, i|
+          chord_interval.map do |chord_value|
+            next Array.new(chord_interval.length) {chord_value} if i == matrix.length - 1
+            matrix[i+1].map do |next_chord_value|
+              chord_value*(1-weighting) + next_chord_value*weighting
+            end
+          end
+        end
+      end
+
+      def combine(harmony_matrix, factors_matrix)
+        factors_matrix.map.with_index do |chord_interval, index|
+          chord_interval.map.with_index do |chord, chord_id|
+            chord.map.with_index do |next_chord, next_chord_id|
+              percent = next_chord*harmony_matrix[index][chord_id]/100
+              if index != factors_matrix.length - 1
+                percent *= harmony_matrix[index+1][next_chord_id]/100
+              end
+              percent
+            end
+          end
+        end
+      end
 
       def handicap(modified_3d, chord_ids, weighting)
         modified_3d.map do |interval|
@@ -50,6 +87,7 @@ module ChordGenerator
         modified_3d.map.with_index do |chord_interval, index|
           chord = chord_ids[index]
           max = 0
+
           # sums = chord_interval.map { |i| i.max }
           # max = sums.max
           # chord = sums.index(max)
@@ -59,97 +97,90 @@ module ChordGenerator
 
               chord = chord_id
               max = chords.max
-              next_chord = chords.index(max)
+              next_chord = chords.each_with_index.max[1]
             end
           else
-            next_chord == 1 if next_chord == 0
-            chord_id = next_chord
-            chords = chord_interval[chord_id]
-            if chords.max > 0
-              chord = chord_id
+            next_chord == 1 if next_chord == 0 # should never happen
+            chord = next_chord
+            chords = chord_interval[chord]
+            if chords.max > max
               max = chords.max
 
-              next_chord = chords.index(max)
+              next_chord = chords.each_with_index.max[1]
             end
           end
           chord
         end
       end
 
-      def with_grouping(modified_3d, weighting)
-        array = JSON.parse(File.open('app/data/matrices/grouping.json', 'r').first)
+      def with_grouping(matrix, type, weighting)
+        array = JSON.parse(File.open("app/data/matrices/#{type}/grouping.json", 'r').first)
         # chord 1 are rows
         # related chords are columns
-        modified_3d.map do |chord_interval|
-          chord_interval.map.with_index do |chord_relations, chord1|
-            chord_relations.map.with_index do |value, chord2|
-              value + (array[chord1][chord2] * weighting)
+
+        matrix.map do |chord_interval|
+          chord_interval.map.with_index do |chord, chord_id|
+            chord.map.with_index do |next_chord, next_chord_id|
+              next_chord + array[chord_id][next_chord_id]*weighting
             end
           end
         end
       end
 
-      def with_naive_next(modified_array, type, weighting, repeat)
+      def with_naive_next(matrix, type, weighting, repeat) # repeat is flat percentage
         array = JSON.parse(File.open("app/data/matrices/#{type}/naive_next.json", 'r').first)
         # chord1 are rows
         # next chords are columns
 
-        modified_array.map.with_index do |chord_interval, i|
-          chord_interval.map.with_index do |chord_value, chord_id|
-            if i == modified_array.length - 1
-              Array.new(array.length, chord_value)
-            else
-              array[chord_id].map.with_index do |next_chord_value, next_chord_id|
-                next_chord_percent = next_chord_value * modified_array[i + 1][next_chord_id] * weighting / 100
-                if next_chord_id == chord_id
-                  (chord_value + next_chord_percent) * repeat # make it unlikely to repeat chords
-                else
-                  chord_value + next_chord_percent
-                end
+        matrix.map.with_index do |chord_interval, i|
+          chord_interval.map.with_index do |chord, chord_id|
+            chord.map.with_index do |next_chord, next_chord_id|
+              next_chord_percent = array[chord_id][next_chord_id] * weighting
+              if next_chord_id == chord_id
+                next_chord + next_chord_percent - repeat # make it unlikely to repeat chords
+              else
+                next_chord + next_chord_percent
               end
             end
           end
         end
       end
 
-      def with_overall(harmony_matrix, type, weighting)
-        harmony_matrix = harmony_matrix.to_a
+      def overall_matrix(length, type, weighting)
         array = JSON.parse(File.open("app/data/matrices/#{type}/overall.json", 'r').first)
 
         # 1 row
         # chords are columns
 
-        array.each_with_index do |percent, i|
-          harmony_matrix.length.times do |j|
-            harmony_matrix[j][i] += (percent * weighting)
+        length.times.map do |i|
+          array.map do |percent|
+            percent*weighting
           end
         end
-
-        harmony_matrix
       end
 
-      def with_first_note(modified_array, type, weighting)
+      def with_first_note(matrix, type, weighting)
         array = JSON.parse(File.open("app/data/matrices/#{type}/first_note.json", 'r').first)
 
         # 1 row
         # chords are columns
         array.each_with_index do |percent, i|
-          modified_array[0][i] += (percent * weighting)
+          matrix[0][i] += (percent * weighting)
         end
 
-        modified_array
+        matrix
       end
 
-      def with_last_note(modified_array, type, weighting)
+      def with_last_note(matrix, type, weighting)
         array = JSON.parse(File.open("app/data/matrices/#{type}/last_note.json", 'r').first)
         # 1 row
         # chords are columns
-        last = modified_array.length - 1
+        last = matrix.length - 1
         array.each_with_index do |percent, i|
-          modified_array[last][i] += (percent * weighting)
+          matrix[last][i] += (percent * weighting)
         end
 
-        modified_array
+        matrix
       end
 
       def chord_interval_matrix(chord_intervals)
@@ -160,7 +191,7 @@ module ChordGenerator
         array = JSON.parse(File.open('app/data/matrices/chord_composition.json', 'r').first)
         # chords are rows
         # 0 to 12 is the composition
-        Matrix.rows(array).map! { |i| i * 100 } # make it a bit more fair lol
+        Matrix.rows(array).map! { |i| i * 100 } # change into percentage
       end
     end
   end

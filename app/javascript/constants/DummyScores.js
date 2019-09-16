@@ -1,3 +1,7 @@
 export { ODE_TO_JOY } from "constants/dummy_scores/OdeToJoy.js"
 export { C_SHARP_MINOR_MELODIC } from "constants/dummy_scores/CSharpMinorMelodic.js"
-
+export { TWELVE_BAR_BLUES } from "constants/dummy_scores/TwelveBarBlues.js"
+export { TWINKLE_TWINKLE } from "constants/dummy_scores/TwinkleTwinkle.js"
+export { TWINKLE_TWINKLE_MINOR } from "constants/dummy_scores/TwinkleTwinkleMinor.js"
+export { HAPPY_BIRTHDAY } from "constants/dummy_scores/HappyBirthday.js"
+export { HAPPY_BIRTHDAY_MINOR } from "constants/dummy_scores/HappyBirthdayMinor.js"

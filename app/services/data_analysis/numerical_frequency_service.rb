@@ -9,8 +9,10 @@ module DataAnalysis
         calculate_overall_frequency('major')
         puts '~~~~~~~~~~~ CALCULATING FREQUENCY: OVERALL FREQUENCY (MINOR) ~~~~~~~~~~~'
         calculate_overall_frequency('minor')
-        puts '~~~~~~~~~~~ CALCULATING FREQUENCY: SAME SONG APPEARANCE ~~~~~~~~~~~'
-        calculate_same_song_frequency
+        puts '~~~~~~~~~~~ CALCULATING FREQUENCY: SAME SONG APPEARANCE (MAJOR) ~~~~~~~~~~~'
+        calculate_same_song_frequency('major')
+        puts '~~~~~~~~~~~ CALCULATING FREQUENCY: SAME SONG APPEARANCE (MINOR) ~~~~~~~~~~~'
+        calculate_same_song_frequency('minor')
         puts '~~~~~~~~~~~ CCALCULATING FREQUENCY: FIRST NOTE (MAJOR) ~~~~~~~~~~~'
         calculate_first_note_frequency('major')
         puts '~~~~~~~~~~~ CALCULATING FREQUENCY: FIRST NOTE (MINOR) ~~~~~~~~~~~'
@@ -46,10 +48,12 @@ module DataAnalysis
         puts "\ntime: #{Time.now - start}"
       end
 
-      def calculate_same_song_frequency
+      def calculate_same_song_frequency(type)
         start = Time.now
         frequency = []
+        is_minor = (type == 'minor')
         Tonality::ALL.each do |_key, value|
+          next if is_minor != value[:symbol].end_with?('m')
           print "#{value[:symbol]}  "
           raw_data = File.open("app/data/analysis/formatted/#{value[:symbol]}.json", 'r').first
           data = JSON.parse(raw_data)
@@ -65,7 +69,7 @@ module DataAnalysis
           end
         end
 
-        File.open('app/data/analysis/numerical_frequency/same_song.json', 'w') do |file|
+        File.open("app/data/analysis/#{type}/grouping.json", 'w') do |file|
           file.puts frequency.to_json
         end
         puts "\ntime: #{Time.now - start}"
