@@ -9,27 +9,26 @@ module ChordGenerator
         puts "chord_interval: #{Time.now - start}"
         harmony_matrix = (chord_intervals * composition_matrix.t).to_a # chord_interval x chord_ids, percentages
         puts "harmony: #{Time.now - start}"
-      
+
         factors_matrix = overall_matrix(chord_intervals.row_count, tonality_type, 0.2)
         puts "overall: #{Time.now - start}"
         factors_matrix = with_first_note(factors_matrix, tonality_type, 0.2)
         puts "first note: #{Time.now - start}"
         factors_matrix = with_last_note(factors_matrix, tonality_type, 0.2)
         puts "last note: #{Time.now - start}"
-      
 
         factors_matrix = make_3d(factors_matrix, 0.5) # 3D
         puts "make 3d: #{Time.now - start}"
-      
+
         factors_matrix = with_grouping(factors_matrix, tonality_type, 0.2)
         puts "grouping: #{Time.now - start}"
-      
+
         factors_matrix = with_naive_next(factors_matrix, tonality_type, 0.2, 5)
         puts "naive next: #{Time.now - start}"
-      
+
         combined_matrix = combine(harmony_matrix, factors_matrix)
         puts "combine: #{Time.now - start}"
-      
+
         chord_ids = Array.new(chord_intervals.row_count)
         chord_ids = get_chord_ids(chord_ids, combined_matrix)
         puts "chord ids: #{Time.now - start}"
@@ -45,12 +44,14 @@ module ChordGenerator
       end
 
       private
+
       def make_3d(matrix, weighting)
         matrix.map.with_index do |chord_interval, i|
           chord_interval.map do |chord_value|
-            next Array.new(chord_interval.length) {chord_value} if i == matrix.length - 1
-            matrix[i+1].map do |next_chord_value|
-              chord_value*(1-weighting) + next_chord_value*weighting
+            next Array.new(chord_interval.length) { chord_value } if i == matrix.length - 1
+
+            matrix[i + 1].map do |next_chord_value|
+              chord_value * (1 - weighting) + next_chord_value * weighting
             end
           end
         end
@@ -60,10 +61,8 @@ module ChordGenerator
         factors_matrix.map.with_index do |chord_interval, index|
           chord_interval.map.with_index do |chord, chord_id|
             chord.map.with_index do |next_chord, next_chord_id|
-              percent = next_chord*harmony_matrix[index][chord_id]/100
-              if index != factors_matrix.length - 1
-                percent *= harmony_matrix[index+1][next_chord_id]/100
-              end
+              percent = next_chord * harmony_matrix[index][chord_id] / 100
+              percent *= harmony_matrix[index + 1][next_chord_id] / 100 if index != factors_matrix.length - 1
               percent
             end
           end
@@ -121,7 +120,7 @@ module ChordGenerator
         matrix.map do |chord_interval|
           chord_interval.map.with_index do |chord, chord_id|
             chord.map.with_index do |next_chord, next_chord_id|
-              next_chord + array[chord_id][next_chord_id]*weighting
+              next_chord + array[chord_id][next_chord_id] * weighting
             end
           end
         end
@@ -132,7 +131,7 @@ module ChordGenerator
         # chord1 are rows
         # next chords are columns
 
-        matrix.map.with_index do |chord_interval, i|
+        matrix.map.with_index do |chord_interval, _i|
           chord_interval.map.with_index do |chord, chord_id|
             chord.map.with_index do |next_chord, next_chord_id|
               next_chord_percent = array[chord_id][next_chord_id] * weighting
@@ -152,9 +151,9 @@ module ChordGenerator
         # 1 row
         # chords are columns
 
-        length.times.map do |i|
+        length.times.map do |_i|
           array.map do |percent|
-            percent*weighting
+            percent * weighting
           end
         end
       end

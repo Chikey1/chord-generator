@@ -43,6 +43,7 @@ module ChordGenerator
       def numerical_notes(notes, tonic)
         notes.map do |note|
           next note if note[:symbol].nil?
+
           {
             length: note[:length],
             number: NoteService.semitone_distance(tonic, note[:symbol]),

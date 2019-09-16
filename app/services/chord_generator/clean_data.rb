@@ -44,6 +44,7 @@ module ChordGenerator
 
       def clean_value(value)
         return nil if value.nil? # rest
+
         symbol = value.chop.upcase
         symbol
       end

@@ -6,17 +6,17 @@ class PerformanceTester
       formatted_data = []
 
       count = 0
-      File.open("app/data/raw/chords_by_key/#{"Abm"}.txt", 'r').map do |line|
-        song_data = get_song_data(line, "Abm")
+      File.open('app/data/raw/chords_by_key/Abm.txt', 'r').map do |line|
+        song_data = get_song_data(line, 'Abm')
 
         formatted_data.push(song_data)
-        byebug if formatted_data.count(1) > formatted_data.count(2)
+        # byebug if formatted_data.count(1) > formatted_data.count(2)
         count += 1
         print "\r#{count}"
       end
 
       puts ' - COMPLETE'
-      byebug
+      # byebug
     end
 
     def get_song_data(line, tonality)

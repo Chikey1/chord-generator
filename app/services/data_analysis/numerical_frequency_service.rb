@@ -54,6 +54,7 @@ module DataAnalysis
         is_minor = (type == 'minor')
         Tonality::ALL.each do |_key, value|
           next if is_minor != value[:symbol].end_with?('m')
+
           print "#{value[:symbol]}  "
           raw_data = File.open("app/data/analysis/formatted/#{value[:symbol]}.json", 'r').first
           data = JSON.parse(raw_data)
