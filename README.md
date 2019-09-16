@@ -1,4 +1,6 @@
 # README
+see the demo here!
+https://chord-generator.herokuapp.com/
 
 ## If you lose your db or want to update your data
 1. `DataAnalysis::DataFormatterService.call`
