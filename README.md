@@ -24,8 +24,9 @@ https://chord-generator.herokuapp.com/
 
 
 
-backend:
+**application structure**
 pdf: https://drive.google.com/file/d/1pEjt-SkXFFnrrDXKdpylT-wp3gapSbSI/view?usp=sharing
+
 drawio: https://drive.google.com/file/d/12H74gR6_ta_tq-g9l5z4RJe-RFU9lgbO/view?usp=sharing
 
 
