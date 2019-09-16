@@ -10,31 +10,61 @@
     - this will create some factors you need for recommendation from the frequency data
 4. `DataAnalysis::NumericalProgressionService.call`
     - this will create some factors you need for recommendation from the formatted data
-4. `DataAnalysis::PerSongFrequencyService.call`
+5. `DataAnalysis::PerSongFrequencyService.call`
     - this will create some factors you need for recommendation from the formatted data
+6. `Matrices::GenerateService.call`
+    - this will create the matrices needed to generate chords
 
-## Pre-Commit
+**RUN `rake db:seed:dump FILE=db/seeds/chords.rb` IF NEW CHORDS ARE ADDED!
+
+<!-- ## Pre-Commit
 
 1. `rubocop`
 2. `eslint`
-3. `yarn flow`
+3. `yarn flow` -->
 
 ## Sections
-
-1. [Data](#data)
+1. [Chord Generator](#chord-generator)
+2. [Data](#data)
    1. [raw](#raw)
    2. [analysis](#analysis)
-2. [Services](#services)
+3. [Services](#services)
    1. [converter](#converter)
    2. [data analysis](#data-analysis)
    3. [other](#other)
-3. [Chord Generator](#chord-generator)
 
 
-backend: https://drive.google.com/file/d/12H74gR6_ta_tq-g9l5z4RJe-RFU9lgbO/view?usp=sharing
+
+backend:
+pdf: https://drive.google.com/file/d/1pEjt-SkXFFnrrDXKdpylT-wp3gapSbSI/view?usp=sharing
+drawio: https://drive.google.com/file/d/12H74gR6_ta_tq-g9l5z4RJe-RFU9lgbO/view?usp=sharing
+
+
+## Chord Generator
+can be found in `ChordGenerator::GenerateService`
+most of the matrix calculations is in `ChordGenerator::CalculateChordsService`
+
+### Harmony
+This is the most important factor when it comes to evaluating the choice.
+This can be calculated from the composition of the chords as well as the notes (weighted by length).
+
+### Other Factors
+1. **chord groupings**
+   - what chords are likely to be in the same song with each other
+2. **first note**
+   - what chord is likely to start
+3. **last note**
+   - what chord is likely to end
+4. **naive next**
+   - what chord is likely to follow
+5. **overall frequency**
+   - what chord is likely to appear
+6. **unique chords**
+   - how many unique chords is likely
 
 ## Data
 ### RAW
+raw data is exported from web scraper: https://github.com/Chikey1/music-web-scraper
 
 has one file for each tonality
 
@@ -44,22 +74,19 @@ the line is formatted as:
 
 `title: chord, chord, chord, chord`
 
-### ANALYSIS
+### DATA ANALYSIS
 NOTE: BEFORE RECALCULATING, RUN `DataAnalysis::CheckChordsService.call` TO CHECK FOR ERRORS
 is split into the following, all stored as:
 - **formatted** (json 2D array)
   - raw data formatted into `[song][order] = chord_id`
-  - reformat by running `DataAnalysis::DataFormatterService.call`
-- **numerical_frequency**
-  - overall
-  - appears with other chords in a song
+- **analysis/factors**
+  - overall chord appearance
+  - chord groupings
   - first note
   - last note
-- **numerical_progression**
-  - what numerical chord is most likely to come after the current
-  - uses formatted data
+  - next chord frequency (chord relationships)
 
-## Services
+## Services (may be outdated)
 ### CONVERTER::
 - **MacroChordService**
   - `.call`
@@ -86,7 +113,7 @@ is split into the following, all stored as:
     - converts formatted data into factors
     - [see data](#data) for more information
 
-### OTHER
+### OTHER (may be outdated)
 - **NoteService**
   - `.semitone_distance`
   - `.get_note_index`
@@ -104,7 +131,7 @@ is split into the following, all stored as:
     - input: root - "C", mode - "major"
     - output: same as `scale_from_key`
 
-## MODELS
+## MODELS (may be outdated)
 ### Chord::
 - **Base**
   - ActiveHash
@@ -112,23 +139,3 @@ is split into the following, all stored as:
   - ActiveHash
 - **NumericalChord**
   - ActiveRecord
-
-## Chord Generator
-
-### Harmony
-This is the most important factor when it comes to evaluating the choice.
-This can be calculated from the composition of the chords as well as the notes (weighted by length).
-
-### Other Factors
-1. **same song**
-   - what chords are likely to be in the same song with each other
-2. **first note**
-   - what chord is likely to start
-3. **last note**
-   - what chord is likely to end
-4. **naive next**
-   - what chord is likely to follow
-5. **overall frequency**
-   - what chord is likely to appear
-6. **unique chords**
-   - how many unique chords is likely
