@@ -64,7 +64,6 @@ gem 'active_hash', '~> 2.2.1'
 gem "factory_bot_rails"
 gem "matrix"
 gem "extendmatrix"
-gem "nmatrix"
 
 gem 'webpacker'
 gem 'react-rails'
