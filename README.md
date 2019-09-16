@@ -1,6 +1,7 @@
 # README
-see the demo here!
-https://chord-generator.herokuapp.com/
+tl;dr this application harmonizes a user-inputted melody line using analyzed webscraped data
+
+see the demo here: https://chord-generator.herokuapp.com/
 
 <!-- ## Pre-Commit
 
@@ -20,9 +21,6 @@ https://chord-generator.herokuapp.com/
    3. [other](#other)
 4. [Models](#models)
 5. [Looking Ahead](#looking-ahead)
-
-
-
 
 **application structure**
 
