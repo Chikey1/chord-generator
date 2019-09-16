@@ -1,5 +1,5 @@
 # README
-tl;dr this application harmonizes a user-inputted melody line using analyzed webscraped data
+**tl;dr:** this application harmonizes a user-inputted melody line using analyzed webscraped data
 
 see the demo here: https://chord-generator.herokuapp.com/
 
