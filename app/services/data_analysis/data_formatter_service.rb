@@ -5,9 +5,9 @@ module DataAnalysis
     class << self
       def call
         start_time = Time.now
-        formatted_data = []
-
+        
         Tonality::ALL.each do |key, value|
+          formatted_data = []
           count = 0
           puts "<----- starting #{key} ------->"
           File.open("app/data/raw/chords_by_key/#{value[:symbol]}.txt", 'r').map do |line|

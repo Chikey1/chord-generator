@@ -9,8 +9,10 @@ module DataAnalysis
         calculate_overall_percentage('major')
         puts '~~~~~~~~~~~ CALCULATING PERCENTAGE: OVERALL (MINOR) ~~~~~~~~~~~'
         calculate_overall_percentage('minor')
-        puts '~~~~~~~~~~~ CALCULATING PERCENTAGE: SAME SONG APPEARANCE ~~~~~~~~~~~'
-        calculate_same_song_percentage
+        puts '~~~~~~~~~~~ CALCULATING PERCENTAGE: SAME SONG APPEARANCE (MAJOR) ~~~~~~~~~~~'
+        calculate_same_song_percentage('major')
+        puts '~~~~~~~~~~~ CALCULATING PERCENTAGE: SAME SONG APPEARANCE (MINOR) ~~~~~~~~~~~'
+        calculate_same_song_percentage('minor')
         puts '~~~~~~~~~~~ CALCULATING PERCENTAGE: FIRST NOTE (MAJOR) ~~~~~~~~~~~'
         calculate_first_note_percentage('major')
         puts '~~~~~~~~~~~ CALCULATING PERCENTAGE: FIRST NOTE (MINOR) ~~~~~~~~~~~'
@@ -42,9 +44,9 @@ module DataAnalysis
         puts "time: #{Time.now - start}"
       end
 
-      def calculate_same_song_percentage
+      def calculate_same_song_percentage(type)
         start = Time.now
-        raw_data = File.open('app/data/analysis/numerical_frequency/same_song.json', 'r').first
+        raw_data = File.open("app/data/analysis/#{type}/grouping.json", 'r').first
         data = JSON.parse(raw_data)
         new_data = data.each_with_index.map do |chord1, index|
           next if chord1.nil?
@@ -60,7 +62,7 @@ module DataAnalysis
           end
         end
 
-        File.open('app/data/factors/same_song.json', 'w') do |file|
+        File.open("app/data/factors/#{type}/grouping.json", 'w') do |file|
           file.puts new_data.to_json
         end
         puts "time: #{Time.now - start}"

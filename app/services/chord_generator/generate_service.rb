@@ -24,7 +24,7 @@ module ChordGenerator
         chord_symbols = chord_ids.map do |id|
           next if id.nil?
 
-          Converter::MacroChordService.call(id, tonic)
+          Converter::MacroChordService.call(id, tonality)
         end
         { chords: chord_symbols }
       end
@@ -42,8 +42,7 @@ module ChordGenerator
 
       def numerical_notes(notes, tonic)
         notes.map do |note|
-          return note if note[:symbol].nil?
-
+          next note if note[:symbol].nil?
           {
             length: note[:length],
             number: NoteService.semitone_distance(tonic, note[:symbol]),

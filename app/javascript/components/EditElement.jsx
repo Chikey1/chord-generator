@@ -2,10 +2,8 @@ import React from "react"
 import PropTypes from "prop-types"
 import Staff from "components/staff/Staff"
 import Note from "components/staff/Note"
-import Clef from "components/staff/Clef"
 import Rest from "components/staff/Rest"
 import GhostNotes from "components/staff/GhostNotes"
-import KeySignature from "components/staff/KeySignature"
 
 function EditElement({element, onChange, keySignature}) {
   const handleTypeSelect = (type, length) => {

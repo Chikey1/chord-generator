@@ -26,12 +26,14 @@
 
   .whole {
     background-image: image-url('notes/whole_note.svg');
+    background-position: center;
     width: 14px;
-    height: 10px;
+    height: 30px;
+    top: 1px;
 
     &.line-note::after {
       left: -3px;
-      top: 4px;
+      top: 15px;
       width: 20px;
     }
   }

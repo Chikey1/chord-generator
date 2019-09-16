@@ -13,7 +13,8 @@ module Matrices
         update_last_note_matrix('minor')
         update_overall_matrix('major')
         update_overall_matrix('minor')
-        update_grouping_matrix
+        update_grouping_matrix('major')
+        update_grouping_matrix('minor')
       end
 
       def update_composition_matrix
@@ -96,9 +97,9 @@ module Matrices
         end
       end
 
-      def update_grouping_matrix
+      def update_grouping_matrix(type)
         dim = Chord::NumericalChord.count + 1
-        grouping = JSON.parse(File.open('app/data/factors/same_song_frequency.json', 'r').first)
+        grouping = JSON.parse(File.open("app/data/factors/#{type}/grouping.json", 'r').first)
         matrix = Array.new(dim) do
           Array.new(dim, 0)
         end
@@ -111,7 +112,7 @@ module Matrices
           end
         end
 
-        File.open('app/data/matrices/grouping.json', 'w') do |file|
+        File.open("app/data/matrices/#{type}/grouping.json", 'w') do |file|
           file.puts matrix.to_json
         end
       end
