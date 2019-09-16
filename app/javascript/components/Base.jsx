@@ -208,6 +208,7 @@ class Base extends React.Component {
     return (
       <div className='p-5'>
         <h2 className="text-center">Chord Generator</h2>
+        <p className="text-center">for details on implementation see the <a href="https://github.com/Chikey1/chord-generator#readme" target="_blank">README</a></p>
         { error &&
           <div className="d-flex justify-content-center">
             <div className="alert alert-danger" style={{maxWidth: "800px", minWidth: "400px"}} role="alert">
