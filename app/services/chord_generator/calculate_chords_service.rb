@@ -9,27 +9,27 @@ module ChordGenerator
         puts "chord_interval: #{Time.now - start}"
         harmony_matrix = (chord_intervals * composition_matrix.t).to_a # chord_interval x chord_ids, percentages
         puts "harmony: #{Time.now - start}"
-        # byebug
+      
         factors_matrix = overall_matrix(chord_intervals.row_count, tonality_type, 0.2)
         puts "overall: #{Time.now - start}"
         factors_matrix = with_first_note(factors_matrix, tonality_type, 0.2)
         puts "first note: #{Time.now - start}"
         factors_matrix = with_last_note(factors_matrix, tonality_type, 0.2)
         puts "last note: #{Time.now - start}"
-        # byebug
+      
 
         factors_matrix = make_3d(factors_matrix, 0.5) # 3D
         puts "make 3d: #{Time.now - start}"
-        # byebug
+      
         factors_matrix = with_grouping(factors_matrix, tonality_type, 0.2)
         puts "grouping: #{Time.now - start}"
-        # byebug
+      
         factors_matrix = with_naive_next(factors_matrix, tonality_type, 0.2, 5)
         puts "naive next: #{Time.now - start}"
-        # byebug
+      
         combined_matrix = combine(harmony_matrix, factors_matrix)
         puts "combine: #{Time.now - start}"
-        # byebug
+      
         chord_ids = Array.new(chord_intervals.row_count)
         chord_ids = get_chord_ids(chord_ids, combined_matrix)
         puts "chord ids: #{Time.now - start}"
